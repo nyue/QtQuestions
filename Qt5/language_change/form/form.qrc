@@ -1,0 +1,5 @@
+<!DOCTYPE RCC><RCC version="1.0">
+  <qresource prefix="/designer">
+    <file>form.ui</file>
+  </qresource>
+</RCC>
