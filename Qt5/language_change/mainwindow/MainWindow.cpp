@@ -90,6 +90,9 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::handleLanguageChange(int index)
 {
     QString langFile = QString(":/language/.qm/mlc_%1.qm").arg(_ltc[index].bcp47);
+    if (!ui_translator.isEmpty()) {
+        qApp->removeTranslator(&ui_translator);
+    }
     if (ui_translator.load(langFile)) {
         // qApp->removeTranslator(&ui_translator);
         bool installed = qApp->installTranslator(&ui_translator);
