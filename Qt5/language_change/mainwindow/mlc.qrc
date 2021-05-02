@@ -1,9 +1,14 @@
-<!DOCTYPE RCC><RCC version="1.0">
-  <qresource prefix="/designer">
-    <file>mainwindow.ui</file>
-  </qresource>
-  <qresource prefix="/language">
-    <file>.qm/mlc_C.qm</file>
-    <file>.qm/mlc_de.qm</file>
-  </qresource>
+<RCC>
+    <qresource prefix="/designer">
+        <file>mainwindow.ui</file>
+    </qresource>
+    <qresource prefix="/language">
+        <file>.qm/mlc_en.qm</file>
+        <file>.qm/mlc_de.qm</file>
+        <file>.qm/mlc_es.qm</file>
+    </qresource>
+    <qresource prefix="/icons">
+	  <file>wl.png</file>
+	  <file>Font_Awesome_5_solid_language.svg</file>
+    </qresource>
 </RCC>

@@ -11,10 +11,16 @@
     <message>
         <location filename="mainwindow.ui" line="40"/>
         <source>CheckBox</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="56"/>
+        <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="27"/>
+        <location filename="MainWindow.h" line="33"/>
         <source>Hello</source>
         <translation>Hallo</translation>
     </message>
