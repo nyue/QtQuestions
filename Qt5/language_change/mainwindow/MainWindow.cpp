@@ -27,19 +27,11 @@ MainWindow::MainWindow(QWidget *parent)
     file.close();
     setCentralWidget(widget);
 
-    ui_checkBox = findChild<QCheckBox*>("checkBox");
-    QObject::connect(ui_checkBox, SIGNAL(clicked()),  this, SLOT(doCheckBox()));
-
     // Build language drop down menu
     {
         ui_languageComboBox = findChild<QComboBox*>("comboBox");
         Q_ASSERT(ui_languageComboBox);
         connect(ui_languageComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(handleLanguageChange(int)));
-
-        ui_languageGroup = new QActionGroup(ui_languageComboBox);
-        Q_ASSERT(ui_languageGroup);
-        ui_languageGroup->setExclusive(true);
-        connect(ui_languageGroup, SIGNAL (triggered(QAction *)), this, SLOT (slotLanguageChanged(QAction *)));
 
         // Find available languages
 
@@ -51,27 +43,34 @@ MainWindow::MainWindow(QWidget *parent)
             QLocale locale(language);
             /*
             qDebug() << item;
-            qDebug() << language;
-            qDebug() << QLocale::countryToString(locale.country());
-            qDebug() << QLocale::languageToString(locale.language());
+            qDebug() << "bcp47 " << language;
+            qDebug() << "countryToString " << QLocale::countryToString(locale.country());
+            qDebug() << "languageToString " << QLocale::languageToString(locale.language());
             */
 
             // Create a translator for each language found
             TranslatorShdPtr t(new QTranslator);
             if (t->load(item))
             {
-                struct abc stuff{QLocale::languageToString(locale.language()),t};
+                struct abc stuff{QLocale::languageToString(locale.language()),language,t};
                 _ltc.push_back(stuff);
             }
 
         }
 
         // Iterate the languages found to build the drop down list
-        // QMapIterator<QString, TranslatorShdPtr> i(_ltc);
         QVectorIterator<struct abc> ii(_ltc);
         while (ii.hasNext()) {
             struct abc s = ii.next();
-            qDebug() << s.name << ": " << s.translator;
+            // qDebug() << s.name << ": " << s.translator;
+            // qDebug() << "s.name " << s.name;
+            ui_languageComboBox->addItem(s.name,s.name);
+        }
+
+        // Default to English
+        int index = ui_languageComboBox->findData("English");
+        if ( index != -1 ) { // -1 for not found
+            ui_languageComboBox->setCurrentIndex(index);
         }
 
     }
@@ -88,52 +87,21 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 
-void MainWindow::doCheckBox() {
-    qDebug() << "doCheckBox() called = " << ui_checkBox->isChecked();
-    if (ui_checkBox->isChecked())
-    {
-        QString langFile = QString(":/language/.qm/mlc_de.qm");
-        if (ui_translator.load(langFile)) {
-            qDebug() << "DE Sucessful";
-            qApp->removeTranslator(&ui_translator);
-            bool installed = qApp->installTranslator(&ui_translator);
-            if (installed) {
-                qDebug() << "DE installed";
-                this->retranslateUi();
-            }
-        }
-        else
-        {
-            qDebug() << "DE Unsuccessful";
-        }
-    }
-    else
-    {
-        QString langFile = QString(":/language/.qm/mlc_C.qm");
-
-        if (ui_translator.load(langFile)) {
-            qDebug() << "C Successful";
-            qApp->removeTranslator(&ui_translator);
-            bool installed = qApp->installTranslator(&ui_translator);
-            if (installed) {
-                qDebug() << "C installed";
-                this->retranslateUi();
-            }
-        }
-        else
-        {
-            qDebug() << "C Unsuccessful";
-        }
-    }
-}
-
-void MainWindow::slotLanguageChanged(QAction* action)
-{
-    qDebug() << "slotLanguageChanged";
-}
-
 void MainWindow::handleLanguageChange(int index)
 {
-    qDebug() << "handleLanguageChange = " << index;
-    qDebug() << "handleLanguageChange = " << _ltc[index].name;
+    QString langFile = QString(":/language/.qm/mlc_%1.qm").arg(_ltc[index].bcp47);
+    if (ui_translator.load(langFile)) {
+        // qApp->removeTranslator(&ui_translator);
+        bool installed = qApp->installTranslator(&ui_translator);
+        if (installed) {
+            this->retranslateUi();
+        }
+    }
+}
+
+void MainWindow::retranslateUi()
+{
+    ui_label = findChild<QLabel*>("label");
+    if (ui_label)
+        ui_label->setText(QCoreApplication::translate("MainWindow", "Hello", nullptr));
 }

@@ -7,7 +7,6 @@
 #include <QTranslator>
 #include <QCoreApplication>
 #include <QSharedPointer>
-#include <QActionGroup>
 #include <QVector>
 
 class MainWindow : public QMainWindow
@@ -19,6 +18,7 @@ class MainWindow : public QMainWindow
     // typedef QMap<QString,TranslatorShdPtr> LanguageTranslatorMapContainer;
     struct abc {
         QString name;
+        QString bcp47;
         TranslatorShdPtr translator;
     };
 
@@ -32,22 +32,11 @@ private:
 	QCheckBox* ui_checkBox;
 	QLabel* ui_label;
     QComboBox* ui_languageComboBox;
-    QActionGroup* ui_languageGroup;
-
     QTranslator ui_translator;
     QLabel* ui_iconLabel;
-    void retranslateUi()
-    {
-        // setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        ui_label = findChild<QLabel*>("label");
-        if (ui_label)
-            ui_label->setText(QCoreApplication::translate("MainWindow", "Hello", nullptr));
-        // ui_checkBox->setText(QCoreApplication::translate("MainWindow", "CheckBox", nullptr));
-        // ui_pushButonn->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
-    } // retranslateUi
     LanguageTranslatorVecContainer _ltc;
+private:
+    void retranslateUi();
 private slots:
-	void doCheckBox();
-    void slotLanguageChanged(QAction* action);
     void handleLanguageChange(int index);
 };
