@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/designer">
+        <file>ogl.ui</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,10 @@
+QT   += core gui widgets uitools svg opengl
+CONFIG += qt
+CONFIG += c++11
+CONFIG += lrelease
+SOURCES += main.cpp
+SOURCES += MainWindow.cpp
+SOURCES += MyOpenGLWidget.cpp
+HEADERS += MainWindow.h
+HEADERS += MyOpenGLWidget.h
+RESOURCES += ogl.qrc
