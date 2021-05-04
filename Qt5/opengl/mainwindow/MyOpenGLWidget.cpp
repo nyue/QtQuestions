@@ -36,3 +36,6 @@ void MyOpenGLWidget::mouseMoveEvent(QMouseEvent *event)
     qDebug() << "mouseMoveEvent";
 
 }
+
+void MyOpenGLWidget::hello()
+{qDebug() << "hello";}

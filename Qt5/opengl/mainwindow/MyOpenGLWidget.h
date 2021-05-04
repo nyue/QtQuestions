@@ -15,6 +15,7 @@ class MyOpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions
 public:
     MyOpenGLWidget(QWidget *parent = nullptr);
     ~MyOpenGLWidget();
+    void hello();
 protected:
     void initializeGL() override;
     void paintGL() override;
