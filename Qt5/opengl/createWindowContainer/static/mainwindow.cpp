@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QWidget *w = QWidget::createWindowContainer(m_myWindow);
 
-    takeCentralWidget();
+    // takeCentralWidget();
     setCentralWidget(w);
 }
 
