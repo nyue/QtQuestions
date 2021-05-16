@@ -19,4 +19,8 @@ public:
     virtual ~IOMainWindow();
 private:
     Ui::MainWindow *ui;
+private slots:
+  void OnFileOpen();
+  void OnFileClose();
+  // void OnFileSave();
 };
