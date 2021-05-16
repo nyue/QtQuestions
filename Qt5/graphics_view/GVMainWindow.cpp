@@ -13,6 +13,14 @@ GVMainWindow::GVMainWindow(QWidget *parent)
     connect(ui->actionQuit, &QAction::triggered, this, &GVMainWindow::OnFileClose);
     connect(ui->actionSave, &QAction::triggered, this, &GVMainWindow::OnFileSave);
     connect(ui->actionOpen, &QAction::triggered, this, &GVMainWindow::OnFileOpen);
+
+    {
+        ui->toolBox->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Ignored));
+        ui->toolBox->setMinimumWidth(200/*itemWidget->sizeHint().width()*/);
+    }
+    {
+        ui->openGLWidget->setMinimumHeight(200);
+    }
 #ifdef Q_OS_WASM
     ui->actionSave->setText(tr("Download"));
     ui->menuFile->removeAction(ui->actionSave_As);
