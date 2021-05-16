@@ -22,5 +22,5 @@ private:
 private slots:
   void OnFileOpen();
   void OnFileClose();
-  // void OnFileSave();
+  void OnFileSave();
 };
