@@ -24,6 +24,11 @@ GVMainWindow::GVMainWindow(QWidget *parent)
 #ifdef Q_OS_WASM
     ui->actionSave->setText(tr("Download"));
     ui->menuFile->removeAction(ui->actionSave_As);
+    if (ui->openGLWidget)
+    {
+        ui->verticalLayout_2->removeWidget(ui->openGLWidget);
+        delete ui->openGLWidget;
+    }
 #endif
 }
 
