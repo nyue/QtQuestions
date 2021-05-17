@@ -16,10 +16,10 @@ GVMainWindow::GVMainWindow(QWidget *parent)
 
     {
         ui->toolBox->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Ignored));
-        ui->toolBox->setMinimumWidth(200/*itemWidget->sizeHint().width()*/);
+        ui->toolBox->setMinimumWidth(64/*itemWidget->sizeHint().width()*/);
     }
     {
-        ui->openGLWidget->setMinimumHeight(200);
+        ui->openGLWidget->setMinimumHeight(64);
     }
 #ifdef Q_OS_WASM
     ui->actionSave->setText(tr("Download"));
