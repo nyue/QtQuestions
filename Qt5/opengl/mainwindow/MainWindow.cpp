@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     setCentralWidget(widget);
 
     // QOpenGLWidget *_ui_openglWidget = findChild<QOpenGLWidget*>("openGLWidget");
-    ui_openglWidget = reinterpret_cast<MyOpenGLWidget*>(findChild<QOpenGLWidget*>("openGLWidget"));
+    ui_openglWidget = reinterpret_cast<MyOpenGLWidget*>(findChild<MyOpenGLWidget*>("openGLWidget"));
     // qDebug() << _ui_openglWidget;
     qDebug() << ui_openglWidget;
     ui_openglWidget->hello();
