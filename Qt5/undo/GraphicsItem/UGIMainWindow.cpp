@@ -15,9 +15,6 @@ UGIMainWindow::UGIMainWindow(QWidget *parent)
 
     connect(ui->actionQuit, &QAction::triggered, this, &UGIMainWindow::OnFileClose);
 
-    qDebug() << "XXXXXX";
-    QSize viewSize = ui->graphicsView->size();
-    qDebug() << viewSize;
     ui->graphicsView->setScene(scene);
 }
 

@@ -13,6 +13,7 @@ void UGIGraphicsScene::updateScene()
 void UGIGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     qDebug() << "SEGraphicsScene::mousePressEvent";
+    QGraphicsScene::mousePressEvent(event);
 }
 
 void UGIGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)

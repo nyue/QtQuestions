@@ -11,21 +11,17 @@ UGIGraphicsView::UGIGraphicsView(QWidget *parent)
 
 void UGIGraphicsView::resizeEvent(QResizeEvent *event)
 {
+    qDebug() << "UGIGraphicsView::resizeEvent";
     this->scene()->setSceneRect(rect());
 }
 
 void UGIGraphicsView::mousePressEvent(QMouseEvent *event)
 {
-    double rad = 1;
-    previousPoint = mapToScene(event->pos());
-    /*
-    scene->addEllipse(pt.x()-rad, pt.y()-rad, rad*2.0, rad*2.0,
-                      QPen(), QBrush(Qt::SolidPattern));
-*/
-    qDebug() << "Press pos = " << previousPoint;
-    havePreviousPoint = true;
-    qreal radius = 20;
-    this->scene()->addEllipse(event->pos().x(),event->pos().y(),radius,radius);
+    qDebug() << "UGIGraphicsView::mousePressEvent";
+    const qreal radius = 5;
+    const qreal half_radius = radius * 0.5;
+    this->scene()->addEllipse(event->pos().x()-half_radius,event->pos().y()-half_radius,radius,radius);
+
     QGraphicsView::mousePressEvent(event);
 }
 
@@ -40,6 +36,6 @@ void UGIGraphicsView::mouseMoveEvent(QMouseEvent *event)
 
 void UGIGraphicsView::mouseReleaseEvent(QMouseEvent *event)
 {
-    QPointF pt = mapToScene(event->pos());
+    qDebug() << "UGIGraphicsView::mouseReleaseEvent";
     QGraphicsView::mouseReleaseEvent(event);
 }
