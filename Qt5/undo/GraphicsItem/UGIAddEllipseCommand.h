@@ -7,11 +7,11 @@
 class UGIAddEllipseCommand : public QUndoCommand
 {
 public:
-    UGIAddEllipseCommand(QGraphicsScene *scene, const QGraphicsEllipseItem* ellipse, QUndoCommand *parent = 0);
+    UGIAddEllipseCommand(QGraphicsScene *scene, QGraphicsEllipseItem* ellipse, QUndoCommand *parent = 0);
     void undo();
     void redo();
 private:
     QGraphicsScene* scene;
-    const QGraphicsEllipseItem* _ellipse;
+    QGraphicsEllipseItem* _ellipse;
     void resetEllipse(const int commandType);
 };

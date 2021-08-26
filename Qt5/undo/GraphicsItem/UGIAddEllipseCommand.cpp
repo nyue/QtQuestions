@@ -1,10 +1,11 @@
 #include "UGIAddEllipseCommand.h"
+#include <QDebug>
 
 const int UndoCommandType = 100;
 const int RedoCommandType = 101;
 
 UGIAddEllipseCommand::UGIAddEllipseCommand(QGraphicsScene *scene,
-                                           const QGraphicsEllipseItem* ellipse,
+                                           QGraphicsEllipseItem* ellipse,
                                            QUndoCommand *parent):
     QUndoCommand(parent)
 {
@@ -29,6 +30,7 @@ void UGIAddEllipseCommand::undo(){
 }
 
 void UGIAddEllipseCommand::resetEllipse(const int commandType){
+    qDebug() << commandType;
     /*
     QMapIterator<QAbstractGraphicsShapeItem*, QColor> i(oldColorMap);
     while (i.hasNext()) {
@@ -41,5 +43,11 @@ void UGIAddEllipseCommand::resetEllipse(const int commandType){
          i.key()->setBrush(aBrush);
     }
     */
+    if(commandType == UndoCommandType)
+    {
+        scene->removeItem(_ellipse);
+    } else if (commandType == RedoCommandType) {
+        scene->addItem(_ellipse);
+    }
     scene->update();
 }
