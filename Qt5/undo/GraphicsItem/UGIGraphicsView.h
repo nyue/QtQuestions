@@ -17,13 +17,4 @@ public slots:
     void mouseMoveEvent   (QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     void resizeEvent(QResizeEvent *event) override;
-
-private:
-    // SEGraphicsScene scene;
-    std::vector<QPointF> points;
-    bool havePreviousPoint;
-    QPointF previousPoint;
-private:
-    QPolygonF polygonalHull;
-    QGraphicsPolygonItem polygonalHullItem;
 };

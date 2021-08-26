@@ -14,6 +14,8 @@ UGIMainWindow::UGIMainWindow(QWidget *parent)
     undoStack = new QUndoStack(this);
 
     connect(ui->actionQuit, &QAction::triggered, this, &UGIMainWindow::OnFileClose);
+    connect(ui->actionUndo, &QAction::triggered, this, &UGIMainWindow::OnUndo);
+    connect(ui->actionRedo, &QAction::triggered, this, &UGIMainWindow::OnRedo);
 
     ui->graphicsView->setScene(scene);
 }
@@ -26,4 +28,16 @@ UGIMainWindow::~UGIMainWindow()
 void UGIMainWindow::OnFileClose()
 {
     this->close();
+}
+
+void UGIMainWindow::OnUndo()
+{
+    qDebug() << "UGIMainWindow::OnUndo";
+    undoStack->undo();
+}
+
+void UGIMainWindow::OnRedo()
+{
+    qDebug() << "UGIMainWindow::OnRedo";
+    undoStack->redo();
 }

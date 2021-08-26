@@ -19,12 +19,15 @@ class UGIMainWindow : public QMainWindow
 public:
     UGIMainWindow(QWidget *parent = 0);
     virtual ~UGIMainWindow();
-
+    QUndoStack *getUndoStack() { return undoStack;};
 private:
     Ui::MainWindow *ui;
     UGIGraphicsScene *scene;
     QUndoStack *undoStack;
     void addUndoPoint() {};
+
 private slots:
   void OnFileClose();
+  void OnUndo();
+  void OnRedo();
 };

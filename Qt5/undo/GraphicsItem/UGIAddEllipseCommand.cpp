@@ -1,10 +1,11 @@
-#include "UGIAddPointCommand.h"
+#include "UGIAddEllipseCommand.h"
 
 const int UndoCommandType = 100;
 const int RedoCommandType = 101;
 
-UGIAddPointCommand::UGIAddPointCommand(QGraphicsScene *scene,
-                          QPointF nPoint, QUndoCommand *parent):
+UGIAddEllipseCommand::UGIAddEllipseCommand(QGraphicsScene *scene,
+                                           const QGraphicsEllipseItem* ellipse,
+                                           QUndoCommand *parent):
     QUndoCommand(parent)
 {
     this->scene = scene;
@@ -16,18 +17,18 @@ UGIAddPointCommand::UGIAddPointCommand(QGraphicsScene *scene,
         }
     }
     */
-    this->nPoint = nPoint;
+    this->_ellipse = ellipse;
 }
 
-void UGIAddPointCommand::redo(){
-    resetPoint(RedoCommandType);
+void UGIAddEllipseCommand::redo(){
+    resetEllipse(RedoCommandType);
 }
 
-void UGIAddPointCommand::undo(){
-    resetPoint(UndoCommandType);
+void UGIAddEllipseCommand::undo(){
+    resetEllipse(UndoCommandType);
 }
 
-void UGIAddPointCommand::resetPoint(const int commandType){
+void UGIAddEllipseCommand::resetEllipse(const int commandType){
     /*
     QMapIterator<QAbstractGraphicsShapeItem*, QColor> i(oldColorMap);
     while (i.hasNext()) {
