@@ -1,5 +1,5 @@
 #include "UGIMainWindow.h"
-#include "ui_ugi.h"
+#include <ui_ugi.h>
 #include <QFileDialog>
 #include <QAction>
 #include <QDebug>
