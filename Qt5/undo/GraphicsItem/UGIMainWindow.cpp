@@ -13,6 +13,10 @@ UGIMainWindow::UGIMainWindow(QWidget *parent)
     scene = new UGIGraphicsScene(this);
     undoStack = new QUndoStack(this);
 
+    ui->actionQuit->setShortcut(QKeySequence("Ctrl+Q"));
+    ui->actionUndo->setShortcut(QKeySequence("Ctrl+Z"));
+    ui->actionRedo->setShortcut(QKeySequence("Ctrl+Y"));
+
     connect(ui->actionQuit, &QAction::triggered, this, &UGIMainWindow::OnFileClose);
     connect(ui->actionUndo, &QAction::triggered, this, &UGIMainWindow::OnUndo);
     connect(ui->actionRedo, &QAction::triggered, this, &UGIMainWindow::OnRedo);
