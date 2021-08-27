@@ -1,5 +1,3 @@
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-
 qt5_wrap_ui(ui_headers
   ugi.ui
   )
