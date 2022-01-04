@@ -1,5 +1,5 @@
 import sys
-from PySide2 import QtWidgets, QtGui
+from PySide2 import QtWidgets, QtGui, QtCore
 
 from MainWindow import Ui_MainWindow
 
@@ -17,28 +17,42 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.actionSlow.triggered.connect(self.Slow)
 
         self.emptyWidget = QtWidgets.QWidget()
+        self.verticalLayout.addWidget(QtWidgets.QLabel('Some header'))
         self.verticalLayout.addWidget(self.emptyWidget)
+        self.verticalLayout.addWidget(QtWidgets.QLabel('Some footer'))
+        self.verticalLayout.addStretch()
 
         self.slowWidget = QtWidgets.QLabel("Slow")
-        self.fastWidget = QtWidgets.QLabel("Fast")
+        # self.fastWidget = QtWidgets.QLabel("Fast")
+
+        self.fastWidget = QtWidgets.QSlider(QtCore.Qt.Horizontal)
+        self.fastWidget.setTickPosition(QtWidgets.QSlider.TicksAbove)
+        self.fastWidget.setMinimum(-20)
+        self.fastWidget.setMaximum(40)
 
     def Fast(self):
-        print('Fast')
-        itemToBeReplaced = self.verticalLayout.itemAt(0)
+        itemToBeReplaced = self.verticalLayout.itemAt(1)
         if itemToBeReplaced:
-            self.verticalLayout.replaceWidget(itemToBeReplaced.widget(),self.fastWidget)
-            self.verticalLayout.update()
+            print('Fast')
+            previousWidgetItem = self.verticalLayout.replaceWidget(
+                itemToBeReplaced.widget(), self.fastWidget)
+            if previousWidgetItem:
+                previousWidgetItem.widget().setVisible(False)
+                self.fastWidget.setVisible(True)
 
     def Slow(self):
-        print('Slow')
-        itemToBeReplaced = self.verticalLayout.itemAt(0)
+        itemToBeReplaced = self.verticalLayout.itemAt(1)
         if itemToBeReplaced:
-            self.verticalLayout.replaceWidget(itemToBeReplaced.widget(),self.slowWidget)
-            self.verticalLayout.update()
+            print('Slow')
+            previousWidgetItem = self.verticalLayout.replaceWidget(
+                itemToBeReplaced.widget(), self.slowWidget)
+            if previousWidgetItem:
+                previousWidgetItem.widget().setVisible(False)
+                self.slowWidget.setVisible(True)
+
 
 app = QtWidgets.QApplication(sys.argv)
 
 window = MainWindow()
 window.show()
 app.exec_()
-
