@@ -1,4 +1,7 @@
 add_executable(ca_app
+  CircleGraphicsItem.cpp
+  SquareGraphicsItem.cpp
+  AbstractGraphicsItem.cpp
   MyGraphicsScene.cpp
   MyGraphicsView.cpp
   AppMainWindow.cpp
