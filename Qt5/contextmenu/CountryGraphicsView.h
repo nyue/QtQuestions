@@ -7,4 +7,5 @@ class CountryGraphicsView: public QGraphicsView {
 public:
     explicit CountryGraphicsView(QWidget *parent = 0);
     ~CountryGraphicsView();
+    virtual void contextMenuEvent(QContextMenuEvent *event) override;
 };
