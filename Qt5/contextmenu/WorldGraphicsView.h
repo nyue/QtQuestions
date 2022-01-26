@@ -11,6 +11,6 @@ public:
     virtual void contextMenuEvent(QContextMenuEvent *event) override;
 private:
     QMenu* _contextMenu;
-private slots:
-	void contextMenuHandler(QString parameter1, QString parameter2);
+public:
+	void contextMenuHandler(const QString param1,const QString param2);
 };

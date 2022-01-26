@@ -11,11 +11,9 @@ WorldGraphicsView::WorldGraphicsView(QWidget *parent)
 	QString p2;
 
 	p1 = "hello";
-	p2 = "world";
-	QAction* communications = _contextMenu->addAction("communications",this,SLOT(contextMenuHandler(QString,QString)));
-	p1 = "star";
-	p2 = "war";
-	QAction* transport = _contextMenu->addAction("transport",this,SLOT(contextMenuHandler(QString,QString)));
+	p2 = "world tomorrow";
+	QAction* communications = _contextMenu->addAction("communications");
+	connect(communications,  &QAction::triggered, this, [this, v1=p1, v2=p2]{ contextMenuHandler(v1,v2); });
 }
 
 WorldGraphicsView::~WorldGraphicsView()
@@ -29,7 +27,8 @@ void WorldGraphicsView::contextMenuEvent(QContextMenuEvent *event)
 	_contextMenu->exec(event->globalPos());
 }
 
-void WorldGraphicsView::contextMenuHandler(QString parameter1, QString parameter2)
+void WorldGraphicsView::contextMenuHandler(const QString param1,const QString param2)
 {
-
+	qDebug() << param1;
+	qDebug() << param2;
 }
