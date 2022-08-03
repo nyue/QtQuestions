@@ -121,10 +121,33 @@ void SceneWalker::walkEntity(Qt3DCore::QEntity *e, int depth)
             	if (!myQGeometryRenderer.isEmpty())
             	{
             		Qt3DRender::QGeometryRenderer *gr = myQGeometryRenderer[0];
-            		QVector3D minPoint = gr->implicitMinPoint();
-            		QVector3D maxPoint = gr->implicitMaxPoint();
-            		qDebug() << "minPoint: " << minPoint;
-            		qDebug() << "maxPoint: " << maxPoint;
+
+                    QVector3D minExtent = gr->geometry()->minExtent();
+                    QVector3D maxExtent = gr->geometry()->maxExtent();
+                    {
+                        qDebug() << "minExtent: " << minExtent;
+                        qDebug() << "maxExtent: " << maxExtent;
+
+                    }
+                    if (gr->updateImplicitBounds())
+                    {
+                        if (gr->areImplicitPointsValid())
+                        {
+                            QVector3D implicitMinPoint = gr->implicitMinPoint();
+                            QVector3D implicitMaxPoint = gr->implicitMaxPoint();
+
+                            qDebug() << "implicitMinPoint: " << implicitMinPoint;
+                            qDebug() << "implicitMaxPoint: " << implicitMaxPoint;
+                        }
+                        else
+                        {
+                            QVector3D minPoint = gr->minPoint();
+                            QVector3D maxPoint = gr->maxPoint();
+
+                            qDebug() << "minPoint: " << minPoint;
+                            qDebug() << "maxPoint: " << maxPoint;
+                        }
+                    }
             	}
             }
             walkEntity(entity, depth + 1);
@@ -137,6 +160,7 @@ int main(int ac, char **av)
     QApplication app(ac, av);
     Qt3DExtras::Qt3DWindow view;
     view.defaultFrameGraph()->setClearColor(Qt::black);
+
 
     // Root entity
     Qt3DCore::QEntity *sceneRoot = new Qt3DCore::QEntity();
