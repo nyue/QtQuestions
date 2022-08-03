@@ -51,12 +51,15 @@
 #include <QFileDialog>
 #include <QApplication>
 
+#include <QList>
+
 #include <Qt3DRender/QCamera>
 #include <Qt3DCore/QEntity>
 #include <Qt3DCore/QAspectEngine>
 #include <Qt3DInput/QInputAspect>
 #include <Qt3DRender/QSceneLoader>
 #include <Qt3DRender/QRenderAspect>
+#include <Qt3DRender/QGeometryRenderer>
 #include <Qt3DExtras/QForwardRenderer>
 #include <Qt3DExtras/qt3dwindow.h>
 #include <Qt3DExtras/qfirstpersoncameracontroller.h>
@@ -97,6 +100,8 @@ void SceneWalker::onStatusChanged()
     Qt3DCore::QEntity *e = root->findChild<Qt3DCore::QEntity *>(QStringLiteral("PlanePropeller_mesh")); // toyplane.obj
     if (e)
         qDebug() << "Found propeller node" << e << "with components" << e->components();
+
+
 }
 
 void SceneWalker::walkEntity(Qt3DCore::QEntity *e, int depth)
@@ -109,6 +114,19 @@ void SceneWalker::walkEntity(Qt3DCore::QEntity *e, int depth)
             QString indent;
             indent.fill(' ', depth * 2);
             qDebug().noquote() << indent << "Entity:" << entity << "Components:" << entity->components();
+            {
+            	// Question about BoundingVolume
+            	qDebug() << "BoundingVolume: " << entity->objectName();
+            	const QList<Qt3DRender::QGeometryRenderer *> myQGeometryRenderer = entity->componentsOfType<Qt3DRender::QGeometryRenderer>();
+            	if (!myQGeometryRenderer.isEmpty())
+            	{
+            		Qt3DRender::QGeometryRenderer *gr = myQGeometryRenderer[0];
+            		QVector3D minPoint = gr->implicitMinPoint();
+            		QVector3D maxPoint = gr->implicitMaxPoint();
+            		qDebug() << "minPoint: " << minPoint;
+            		qDebug() << "maxPoint: " << maxPoint;
+            	}
+            }
             walkEntity(entity, depth + 1);
         }
     }
