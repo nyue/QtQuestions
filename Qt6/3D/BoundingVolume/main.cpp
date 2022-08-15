@@ -121,10 +121,17 @@ void SceneWalker::walkEntity(Qt3DCore::QEntity *e, int depth)
             	if (!myQGeometryRenderer.isEmpty())
             	{
             		Qt3DRender::QGeometryRenderer *gr = myQGeometryRenderer[0];
-            		QVector3D minPoint = gr->implicitMinPoint();
-            		QVector3D maxPoint = gr->implicitMaxPoint();
-            		qDebug() << "minPoint: " << minPoint;
-            		qDebug() << "maxPoint: " << maxPoint;
+            		if (gr){
+   						qDebug() << "gr is Valid";
+						 if (gr->updateImplicitBounds()){
+       						QVector3D minPoint = gr->implicitMinPoint();
+       						QVector3D maxPoint = gr->implicitMaxPoint();
+       						qDebug() << "minPoint: " << minPoint;
+       						qDebug() << "maxPoint: " << maxPoint;
+                   		}
+						 else
+							 qDebug() << "updateImplicitBounds returns FALSE";
+            		}
             	}
             }
             walkEntity(entity, depth + 1);
