@@ -1,3 +1,4 @@
+# ~/systems/Qt/5.14.2/5.14.2/gcc_64/bin/qmake ../menu_bar/menu_bar.pro 
 anothermenu.cpp
 anothermenu.h
 main.cpp
