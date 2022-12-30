@@ -12,7 +12,6 @@ set(CMAKE_AUTOUIC ON )
 
 include(RPathHelpers) # RPath setup - early in the project!
 include(GitVersioning)
-include(LinuxDeployQt)
 
 find_package(Qt5 COMPONENTS Core Gui Widgets
   REQUIRED CONFIG)
