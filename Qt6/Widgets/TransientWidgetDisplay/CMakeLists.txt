@@ -1,0 +1,11 @@
+add_executable(twd
+  main.cpp
+  AppMainWindow.cpp
+  Node.cpp
+  Scene.cpp
+  View.cpp
+  )
+
+target_link_libraries(twd PRIVATE
+  ${q6q_link_libraries}
+  )
