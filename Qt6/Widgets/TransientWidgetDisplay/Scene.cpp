@@ -18,7 +18,7 @@ void Scene::addNode() {
 	QFont f = this->property("font").value<QFont>();
 	QFontMetrics fm(f);
 	char nodeName[1024];
-	int sResult = sprintf(nodeName, "Node%04uld", _nodes.size());
+	int sResult = sprintf(nodeName, "Node%04lu", _nodes.size());
 	assert(sResult >= 0);
 	Node* nodePtr = new Node(nodeName);
 	this->addItem(nodePtr);

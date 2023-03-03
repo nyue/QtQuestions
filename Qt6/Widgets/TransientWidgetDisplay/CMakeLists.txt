@@ -7,5 +7,5 @@ add_executable(twd
   )
 
 target_link_libraries(twd PRIVATE
-  ${q6q_link_libraries}
+  ${q_link_libraries}
   )
