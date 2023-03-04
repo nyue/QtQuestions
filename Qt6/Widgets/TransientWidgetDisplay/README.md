@@ -24,6 +24,19 @@ Additionally, I only want to display one given Panel at a time so how should
 I swap out a Panel widget in my blank widget area ? What Qt keyword should
 I look up to read more about it ?
 
+## Chat
+
+```
+// create the original QLabel widget
+QLabel* label = new QLabel("Hello, World!");
+
+// create the new QPushButton widget
+QPushButton* button = new QPushButton("Click me!");
+
+// replace the label with the button
+label->replaceWidget(label, button);
+
+```
 
 ## Resources
 https://stackoverflow.com/questions/16795494/add-widgets-to-a-scrollarea
