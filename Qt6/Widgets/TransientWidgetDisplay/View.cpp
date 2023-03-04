@@ -26,9 +26,11 @@ Scene& View::myscene()
 }
 
 void View::keyReleaseEvent(QKeyEvent* event) {
+	/*
 		 if (event->key() == Qt::Key_A)
 		 _scene.addNode();
 		 else
+		 */
 		 if (event->key() == Qt::Key_Q)
 	qApp->quit();
 		 else

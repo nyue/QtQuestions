@@ -27,10 +27,9 @@ AppMainWindow::AppMainWindow(QWidget *parent)
 
         //
     	QScrollArea *pScrollArea = findChild<QScrollArea *>("scrollArea");
-    	QHBoxLayout *pScrollAreaHBoxLayout = new QHBoxLayout();
-    	pScrollAreaHBoxLayout->setObjectName("scrollAreaHBoxLayout");
-    	pScrollArea->setLayout(pScrollAreaHBoxLayout);
-
+    	_panel = new QHBoxLayout();
+    	_panel->setObjectName("scrollAreaHBoxLayout");
+    	pScrollArea->setLayout(_panel);
 }
 
 AppMainWindow::~AppMainWindow() {
@@ -38,15 +37,25 @@ AppMainWindow::~AppMainWindow() {
 }
 
 void AppMainWindow::OnAdd() {
+#ifdef DIRECT_PANEL
 	QHBoxLayout *pHBLayout = findChild<QHBoxLayout *>("scrollAreaHBoxLayout");
 	if (pHBLayout) {
 		QPushButton *pButton = new QPushButton("Add Button", this);
 		pButton->setObjectName("addButton");
 		qDebug() << "AppMainWindow::OnAdd() 0100";
 		pHBLayout->addWidget(pButton);
-		// repaint();
-		//  update();
 	}
+#else // DIRECT_PANEL
+    View* vptr = this->findChild<View*>();
+    if (vptr) {
+    	qDebug() << "OnAdd() Found View";
+    	Scene *sptr = dynamic_cast<Scene*>(vptr->scene());
+    	if (sptr) {
+        	qDebug() << "OnAdd() Castable Scene";
+        	Node* nptr = sptr->addNode(_panel);
+    	}
+    }
+#endif // DIRECT_PANEL
 }
 
 void AppMainWindow::OnReplace() {

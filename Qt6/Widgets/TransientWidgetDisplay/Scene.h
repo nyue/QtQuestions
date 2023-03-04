@@ -9,7 +9,7 @@ Q_OBJECT
 public:
 	Scene(QObject *parent = nullptr);
 	void updateScene();
-	void addNode();
+	Node* addNode(QHBoxLayout* panel);
 protected:
 	virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);
 	// DO NOT IMPLEMENT

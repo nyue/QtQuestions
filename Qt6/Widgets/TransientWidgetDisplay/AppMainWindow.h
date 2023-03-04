@@ -15,6 +15,7 @@ public:
 private:
     Ui::MainWindow *ui;
     QWidget *_scrollAreaWidgetContents;
+    QHBoxLayout *_panel;
 private slots:
 	void OnAdd();
     void OnReplace();

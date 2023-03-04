@@ -1,5 +1,4 @@
 #include "Scene.h"
-#include "Node.h"
 
 #include <cassert>
 
@@ -14,17 +13,18 @@ void Scene::updateScene() {
 
 }
 
-void Scene::addNode() {
+Node* Scene::addNode(QHBoxLayout* panel) {
 	QFont f = this->property("font").value<QFont>();
 	QFontMetrics fm(f);
 	char nodeName[1024];
 	int sResult = sprintf(nodeName, "Node%04lu", _nodes.size());
 	assert(sResult >= 0);
 	nlohmann::json attributes;
-	Node* nodePtr = new Node(nodeName, attributes);
+	Node* nodePtr = new Node(nodeName, attributes, panel);
 	this->addItem(nodePtr);
 	std::pair<NodeContainer::iterator, bool> iResult = _nodes.insert(NodeContainer::value_type(nodeName, nodePtr));
 	assert(iResult.second);
+	return nodePtr;
 }
 
 void Scene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
