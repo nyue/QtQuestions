@@ -8,11 +8,14 @@
 #include <QRectF>
 #include <QGraphicsSceneMouseEvent>
 
+#include <nlohmann/json.hpp>
+
 class Node : public QGraphicsItem
 {
 public:
     enum { Type = UserType + CustomGraphicsItemType::NodeItemType };
 	Node(const std::string& name,
+		 const nlohmann::json& attributes,
 		 QGraphicsItem *parent = nullptr);
 	virtual ~Node();
 	virtual QRectF boundingRect() const;

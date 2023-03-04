@@ -20,7 +20,8 @@ void Scene::addNode() {
 	char nodeName[1024];
 	int sResult = sprintf(nodeName, "Node%04lu", _nodes.size());
 	assert(sResult >= 0);
-	Node* nodePtr = new Node(nodeName);
+	nlohmann::json attributes;
+	Node* nodePtr = new Node(nodeName, attributes);
 	this->addItem(nodePtr);
 	std::pair<NodeContainer::iterator, bool> iResult = _nodes.insert(NodeContainer::value_type(nodeName, nodePtr));
 	assert(iResult.second);

@@ -7,6 +7,7 @@
 #include <iostream>
 
 Node::Node(const std::string &name,
+		   const nlohmann::json& attributes,
 		   QGraphicsItem *parent)
 	:QGraphicsItem(parent)
 	,_width(nodeWidth)
