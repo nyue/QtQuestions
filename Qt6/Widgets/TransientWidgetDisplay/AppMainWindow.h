@@ -10,9 +10,11 @@ class MainWindow;
 
 class AppMainWindow : public QMainWindow {
 public:
-        explicit AppMainWindow(QWidget *parent = 0);
+    explicit AppMainWindow(QWidget *parent = 0);
     virtual ~AppMainWindow();
-
 private:
     Ui::MainWindow *ui;
+    QWidget *_scrollAreaWidgetContents;
+private slots:
+      void OnReplace();
 };

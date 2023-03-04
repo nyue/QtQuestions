@@ -23,3 +23,7 @@ scratch but to somehow track/associate them with a given Node, is that correct?
 Additionally, I only want to display one given Panel at a time so how should
 I swap out a Panel widget in my blank widget area ? What Qt keyword should
 I look up to read more about it ?
+
+
+## Resources
+https://stackoverflow.com/questions/16795494/add-widgets-to-a-scrollarea
