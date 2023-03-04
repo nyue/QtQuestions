@@ -31,7 +31,7 @@
            <x>0</x>
            <y>0</y>
            <width>385</width>
-           <height>536</height>
+           <height>534</height>
           </rect>
          </property>
         </widget>
@@ -47,13 +47,14 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionAdd"/>
     <addaction name="actionReplace"/>
     <addaction name="actionQuit"/>
     <addaction name="separator"/>
@@ -69,6 +70,11 @@
   <action name="actionReplace">
    <property name="text">
     <string>Replace</string>
+   </property>
+  </action>
+  <action name="actionAdd">
+   <property name="text">
+    <string>Add</string>
    </property>
   </action>
  </widget>

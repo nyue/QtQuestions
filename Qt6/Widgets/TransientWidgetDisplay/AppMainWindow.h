@@ -16,5 +16,6 @@ private:
     Ui::MainWindow *ui;
     QWidget *_scrollAreaWidgetContents;
 private slots:
-      void OnReplace();
+	void OnAdd();
+    void OnReplace();
 };
