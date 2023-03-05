@@ -1,5 +1,8 @@
 #include "AppMainWindow.h"
 
+#include "View.h"
+#include "Scene.h"
+
 #include <QApplication>
 #include <QWidget>
 #include <QFileDialog>
@@ -30,6 +33,16 @@ AppMainWindow::AppMainWindow(QWidget *parent)
     	_panel = new QHBoxLayout();
     	_panel->setObjectName("scrollAreaHBoxLayout");
     	pScrollArea->setLayout(_panel);
+
+    	// setup panel pointer in scene (so it can do add node with panel pointer
+    	{
+    	    View* vptr = this->findChild<View*>();
+    	    if (vptr) {
+    	    	qDebug() << "OnAdd() Found View";
+    	    	Scene *sptr = dynamic_cast<Scene*>(vptr->scene());
+    	    	sptr->setPanel(_panel);
+    	    }
+    	}
 }
 
 AppMainWindow::~AppMainWindow() {
@@ -52,7 +65,7 @@ void AppMainWindow::OnAdd() {
     	Scene *sptr = dynamic_cast<Scene*>(vptr->scene());
     	if (sptr) {
         	qDebug() << "OnAdd() Castable Scene";
-        	Node* nptr = sptr->addNode(_panel);
+        	Node* nptr = sptr->addNode();
     	}
     }
 #endif // DIRECT_PANEL

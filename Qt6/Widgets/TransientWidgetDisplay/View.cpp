@@ -10,9 +10,6 @@
 View::View(QWidget* parent) :
 	QGraphicsView(parent)
 {
-	// sceneRect = this->mapToScene(this->rect()).boundingRect();
-	std::cout << "NovView() " << this->mapToScene(this->rect()).boundingRect().width() << std::endl;
-
 	const float sceneWidth = 782.0;
 	const float sceneHeight = 538.0;
 	_scene.setSceneRect(0, 0, sceneWidth, sceneHeight);
@@ -26,13 +23,10 @@ Scene& View::myscene()
 }
 
 void View::keyReleaseEvent(QKeyEvent* event) {
-	/*
-		 if (event->key() == Qt::Key_A)
-		 _scene.addNode();
-		 else
-		 */
-		 if (event->key() == Qt::Key_Q)
-	qApp->quit();
-		 else
-	QGraphicsView::keyReleaseEvent(event);
+	if (event->key() == Qt::Key_A)
+		_scene.addNode();
+	else if (event->key() == Qt::Key_Q)
+		qApp->quit();
+	else
+		QGraphicsView::keyReleaseEvent(event);
 }
