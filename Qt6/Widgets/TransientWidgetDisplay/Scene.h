@@ -10,7 +10,7 @@ public:
 	Scene(QObject *parent = nullptr);
 	void updateScene();
 	Node* addNode();
-	void setPanel(QHBoxLayout* panel);
+	void setPanel(QVBoxLayout* panel);
 protected:
 	virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);
 	// DO NOT IMPLEMENT
@@ -18,6 +18,6 @@ protected:
 	virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 private:
 	NodeContainer _nodes;
-    QHBoxLayout *_panel; // to facilitate panel ui update/replace when adding Node
+	QVBoxLayout *_panel; // to facilitate panel ui update/replace when adding Node
 };
 

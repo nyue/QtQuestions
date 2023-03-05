@@ -8,7 +8,7 @@
 #include <QRectF>
 #include <QGraphicsSceneMouseEvent>
 #include <QWidget>
-#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 #include <nlohmann/json.hpp>
 
@@ -18,7 +18,7 @@ public:
     enum { Type = UserType + CustomGraphicsItemType::NodeItemType };
 	Node(const std::string& name,
 		 const nlohmann::json& attributes,
-		 QHBoxLayout* panel,
+		 QVBoxLayout* panel,
 		 QGraphicsItem *parent = nullptr);
 	virtual ~Node();
 	virtual QRectF boundingRect() const;
@@ -35,7 +35,7 @@ private:
     float _radius;
     QPen _pen;
 	QWidget _ui;
-	QHBoxLayout* _panel; // where to update/replace the UI when node is selected
+	QVBoxLayout* _panel; // where to update/replace the UI when node is selected
 };
 
 typedef std::map<std::string, Node*> NodeContainer;

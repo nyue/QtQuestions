@@ -13,7 +13,7 @@
 #include <QSplitter>
 #include <QLabel>
 #include <QScrollArea>
-#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 #include <iostream>
 
@@ -30,8 +30,11 @@ AppMainWindow::AppMainWindow(QWidget *parent)
 
         //
     	QScrollArea *pScrollArea = findChild<QScrollArea *>("scrollArea");
-    	_panel = new QHBoxLayout();
+    	_panel = new QVBoxLayout();
     	_panel->setObjectName("scrollAreaHBoxLayout");
+    	_panel->setContentsMargins(QMargins(0, 0, 0, 0));
+		_panel->setAlignment(Qt::AlignTop);
+
     	pScrollArea->setLayout(_panel);
 
     	// setup panel pointer in scene (so it can do add node with panel pointer
@@ -51,7 +54,7 @@ AppMainWindow::~AppMainWindow() {
 
 void AppMainWindow::OnAdd() {
 #ifdef DIRECT_PANEL
-	QHBoxLayout *pHBLayout = findChild<QHBoxLayout *>("scrollAreaHBoxLayout");
+	QVBoxLayout *pHBLayout = findChild<QVBoxLayout *>("scrollAreaHBoxLayout");
 	if (pHBLayout) {
 		QPushButton *pButton = new QPushButton("Add Button", this);
 		pButton->setObjectName("addButton");
@@ -73,7 +76,7 @@ void AppMainWindow::OnAdd() {
 
 void AppMainWindow::OnReplace() {
     qDebug() << "AppMainWindow::OnReplace() 0100";
-	QHBoxLayout *pHBLayout = findChild<QHBoxLayout *>("scrollAreaHBoxLayout");
+    QVBoxLayout *pHBLayout = findChild<QVBoxLayout *>("scrollAreaHBoxLayout");
 	if (pHBLayout) {
 		QPushButton *pButton = new QPushButton("Replace Button", this);
 

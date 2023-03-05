@@ -3,16 +3,17 @@
 #include <QPainter>
 #include <QPointF>
 #include <QRectF>
-#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <QLabel>
 #include <QString>
 #include <QDebug>
+#include <QList>
 
 #include <iostream>
 
 Node::Node(const std::string &name,
 		   const nlohmann::json& attributes,
-		   QHBoxLayout* panel,
+		   QVBoxLayout* panel,
 		   QGraphicsItem *parent)
 	:QGraphicsItem(parent)
 	,_panel(panel)
@@ -32,7 +33,7 @@ Node::Node(const std::string &name,
     {
     	// Minimally, add a label so we know which node this UI belongs to when
     	// it is being shown
-    	_ui.setLayout(new QHBoxLayout());
+    	_ui.setLayout(new QVBoxLayout());
     	_ui.layout()->addWidget(new QLabel(name.c_str()));
 
     	// Build attributes UI if required (we only build UI for input
@@ -72,7 +73,14 @@ void Node::paint(QPainter *painter,
 
 void Node::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 	qDebug() << "Node::mousePressEvent";
-	_panel->addWidget(&_ui);
+	if (_panel->count()==0) {
+		_panel->addWidget(&_ui);
+	} else {
+		// replace
+		QWidget *pExistingWidget = _panel->itemAt(0)->widget();
+		_panel->replaceWidget(pExistingWidget, &_ui);
+		pExistingWidget->setParent(nullptr); // Important, otherwise it still shows up
+	}
 
     QGraphicsItem::mousePressEvent(event);
 }

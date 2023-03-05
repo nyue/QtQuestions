@@ -32,7 +32,7 @@ Node* Scene::addNode() {
 
 }
 
-void Scene::setPanel(QHBoxLayout* panel) {
+void Scene::setPanel(QVBoxLayout* panel) {
 	_panel = panel;
 }
 
