@@ -23,6 +23,20 @@ Node* Scene::addNode() {
 		int sResult = sprintf(nodeName, "Node%04lu", _nodes.size());
 		assert(sResult >= 0);
 		nlohmann::json attributes;
+		nlohmann::json in_attributes;
+		in_attributes["command"] = {
+				{"type","string"},
+				{"value",""},
+				{"range",nullptr}
+		};
+		in_attributes["stdin"] = {
+				{"type","string"},
+				{"value",""},
+				{"range",nullptr}
+		};
+		nlohmann::json out_attributes = {};
+		attributes["in"] = in_attributes;
+		attributes["out"] = out_attributes;
 		nodePtr = new Node(nodeName, attributes, _panel);
 		this->addItem(nodePtr);
 		std::pair<NodeContainer::iterator, bool> iResult = _nodes.insert(NodeContainer::value_type(nodeName, nodePtr));

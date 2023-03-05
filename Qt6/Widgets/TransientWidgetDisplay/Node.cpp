@@ -39,9 +39,13 @@ Node::Node(const std::string &name,
     	// Build attributes UI if required (we only build UI for input
     	// attributes
     	// if (!attributes.is_null()) {
-    		if (attributes.contains("in")) {
-    			nlohmann::json in_attributes = attributes["in"];
-    		}
+		if (attributes.contains("in")) {
+			nlohmann::json in_attributes = attributes["in"];
+			for (nlohmann::json::iterator it = in_attributes.begin(); it != in_attributes.end(); ++it) {
+				std::cout << it.key() << '\n';
+		    	_ui.layout()->addWidget(new QLabel(it.key().c_str()));
+			}
+		}
     	// }
     }
 }
