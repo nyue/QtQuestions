@@ -1,6 +1,7 @@
 #pragma once
 
 #include "constants.h"
+#include "Attribute.h"
 
 #include <QGraphicsItem>
 #include <QFontMetrics>
@@ -18,6 +19,7 @@ public:
     enum { Type = UserType + CustomGraphicsItemType::NodeItemType };
 	Node(const std::string& name,
 		 const nlohmann::json& attributes,
+         const QFontMetrics *fontMetrics,
 		 QVBoxLayout* panel,
 		 QGraphicsItem *parent = nullptr);
 	virtual ~Node();
@@ -36,6 +38,9 @@ private:
     QPen _pen;
 	QWidget _ui;
 	QVBoxLayout* _panel; // where to update/replace the UI when node is selected
+    AttributeContainer _in_sockets;
+    AttributeContainer _out_plugs;
+    const QFontMetrics *_fontMetrics;
 };
 
 typedef std::map<std::string, Node*> NodeContainer;

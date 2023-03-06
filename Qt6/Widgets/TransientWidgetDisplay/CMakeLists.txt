@@ -2,6 +2,7 @@ add_executable(twd
   main.cpp
   AppMainWindow.cpp
   Node.cpp
+  Attribute.cpp
   Scene.cpp
   View.cpp
   Utils.cpp

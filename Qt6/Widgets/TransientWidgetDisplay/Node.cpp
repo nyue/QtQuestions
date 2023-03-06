@@ -12,16 +12,20 @@
 
 #include <iostream>
 
+#include <boost/format.hpp>
+
 Node::Node(const std::string &name,
 		   const nlohmann::json& attributes,
+           const QFontMetrics *fontMetrics,
 		   QVBoxLayout* panel,
 		   QGraphicsItem *parent)
-	:QGraphicsItem(parent)
-	,_panel(panel)
-	,_width(nodeWidth)
-	,_height(nodeHeight)
-	,_radius(nodeRadius)
-	,_name(name)
+:QGraphicsItem(parent)
+,_panel(panel)
+,_width(nodeWidth)
+,_height(nodeHeight)
+,_radius(nodeRadius)
+,_name(name)
+,_fontMetrics(fontMetrics)
 {
 
 	std::cout << "Node::Node()" << std::endl;
@@ -39,11 +43,20 @@ Node::Node(const std::string &name,
     	_ui.layout()->addWidget(new QLabel(name.c_str()));
 
 
+    	// Setup
+        float attributeDeltaY = attributeHeight * 1.5;
+        float attributeStartY = attributeDeltaY;
+        size_t index = 0;  // shared by both in and out attribute so their labels don't clash
+        size_t total_attribute_count = 0;
+
     	// Build attributes UI if required (we only build UI for input
     	// attributes
     	// if (!attributes.is_null()) {
 		if (attributes.contains("in")) {
 			nlohmann::json in_attributes = attributes["in"];
+			total_attribute_count += in_attributes.size();
+			std::cout << boost::format("in_attributes.size() = %1%") % in_attributes.size() << std::endl;
+#ifdef OLD
 			for (nlohmann::json::iterator it = in_attributes.begin(); it != in_attributes.end(); ++it) {
 				std::cout << it.key() << std::endl;
 				std::cout << it.value()["type"] << std::endl;
@@ -61,8 +74,36 @@ Node::Node(const std::string &name,
 					}
 				}
 			}
+#else // OLD
+		    for (nlohmann::json::iterator in_attr = in_attributes.begin(); in_attr != in_attributes.end(); ++in_attr) {
+		            float y = attributeStartY + index * attributeDeltaY;
+		            std::string key = in_attr.key();
+					std::string attr_type = in_attr.value()["type"];
+
+		            Attribute *attr = new Attribute(key, true, attributeWidth, y, attr_type, _fontMetrics, this);
+		            _in_sockets.insert(AttributeContainer::value_type(key,attr));
+		            /*
+		             * We do attribute text writing in the Attribute item itself so that it is self contained
+		            QRectF tightRect = font_metric.tightBoundingRect(QString::fromStdString(key));
+		            QRectF textRect = attr->mapToParent(tightRect).boundingRect();
+		            textRect.translate(attr->boundingRect().width(),
+		                            attr->boundingRect().height() * 0.65);
+		            _in_textRect.insert(RectContainer::value_type(key,textRect));
+		            */
+		            index++;
+		    }
+
+#endif // OLD
 		}
-    	// }
+
+		if (attributes.contains("out")) {
+			nlohmann::json out_attributes = attributes["out"];
+			total_attribute_count += out_attributes.size();
+
+		}
+
+        _height = attributeDeltaY * (total_attribute_count+1);
+
     }
 }
 

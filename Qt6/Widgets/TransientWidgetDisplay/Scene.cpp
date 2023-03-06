@@ -7,18 +7,20 @@
 
 Scene::Scene(QObject *parent)
 :_panel(0) {
-
+	_fontMetrics = new QFontMetrics(property("font").value<QFont>());
 }
 
 void Scene::updateScene() {
-
+	delete _fontMetrics;
 }
 
 Node* Scene::addNode() {
 	Node* nodePtr = nullptr;
 	if (_panel) {
+		/*
 		QFont f = this->property("font").value<QFont>();
 		QFontMetrics fm(f);
+		*/
 		char nodeName[1024];
 		int sResult = sprintf(nodeName, "Node%04lu", _nodes.size());
 		assert(sResult >= 0);
@@ -49,7 +51,7 @@ Node* Scene::addNode() {
 		nlohmann::json out_attributes = {};
 		attributes["in"] = in_attributes;
 		attributes["out"] = out_attributes;
-		nodePtr = new Node(nodeName, attributes, _panel);
+		nodePtr = new Node(nodeName, attributes, _fontMetrics, _panel);
 		this->addItem(nodePtr);
 		std::pair<NodeContainer::iterator, bool> iResult = _nodes.insert(NodeContainer::value_type(nodeName, nodePtr));
 		assert(iResult.second);

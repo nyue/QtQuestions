@@ -19,5 +19,6 @@ protected:
 private:
 	NodeContainer _nodes;
 	QVBoxLayout *_panel; // to facilitate panel ui update/replace when adding Node
+    QFontMetrics *_fontMetrics;
 };
 
