@@ -33,7 +33,7 @@ AppMainWindow::AppMainWindow(QWidget *parent)
     	_panel = new QVBoxLayout();
     	_panel->setObjectName("scrollAreaHBoxLayout");
     	_panel->setContentsMargins(QMargins(0, 0, 0, 0));
-		_panel->setAlignment(Qt::AlignTop);
+		_panel->setAlignment(Qt::AlignTop|Qt::AlignLeft);
 
     	pScrollArea->setLayout(_panel);
 

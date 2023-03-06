@@ -34,6 +34,18 @@ Node* Scene::addNode() {
 				{"value",""},
 				{"range",nullptr}
 		};
+		in_attributes["sections"] = {
+				{"type","int"},
+				{"value",0},
+				{"range",{0,5}}
+		};
+		/*
+		in_attributes["angle"] = {
+				{"type","real"},
+				{"value",0.0},
+				{"range",{0.0,360.0}}
+		};
+		*/
 		nlohmann::json out_attributes = {};
 		attributes["in"] = in_attributes;
 		attributes["out"] = out_attributes;

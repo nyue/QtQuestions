@@ -36,6 +36,8 @@ private:
     QPen _pen;
 	QWidget _ui;
 	QVBoxLayout* _panel; // where to update/replace the UI when node is selected
+private slots:
+	void hello();
 };
 
 typedef std::map<std::string, Node*> NodeContainer;

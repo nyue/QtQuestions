@@ -4,6 +4,7 @@ add_executable(twd
   Node.cpp
   Scene.cpp
   View.cpp
+  Utils.cpp
   )
 
 target_link_libraries(twd PRIVATE

@@ -1,4 +1,5 @@
 #include "Node.h"
+#include "Utils.h"
 
 #include <QPainter>
 #include <QPointF>
@@ -34,7 +35,9 @@ Node::Node(const std::string &name,
     	// Minimally, add a label so we know which node this UI belongs to when
     	// it is being shown
     	_ui.setLayout(new QVBoxLayout());
+    	_ui.layout()->setAlignment(Qt::AlignTop|Qt::AlignLeft);
     	_ui.layout()->addWidget(new QLabel(name.c_str()));
+
 
     	// Build attributes UI if required (we only build UI for input
     	// attributes
@@ -42,8 +45,21 @@ Node::Node(const std::string &name,
 		if (attributes.contains("in")) {
 			nlohmann::json in_attributes = attributes["in"];
 			for (nlohmann::json::iterator it = in_attributes.begin(); it != in_attributes.end(); ++it) {
-				std::cout << it.key() << '\n';
-		    	_ui.layout()->addWidget(new QLabel(it.key().c_str()));
+				std::cout << it.key() << std::endl;
+				std::cout << it.value()["type"] << std::endl;
+				std::string type = it.value()["type"];
+				if (type.compare("string")==0) {
+			    	_ui.layout()->addWidget(attributeLineEditWidget(it.key().c_str()));
+				} else if (type.compare("int")==0) {
+					if (!it.value()["range"].is_null()) {
+						Range range;
+						range.first.setValue<int>(it.value()["range"][0]);
+						range.second.setValue<int>(it.value()["range"][1]);
+						_ui.layout()->addWidget(attributeSliderWidget(it.key().c_str(),&range));
+					} else {
+						_ui.layout()->addWidget(attributeSliderWidget(it.key().c_str()));
+					}
+				}
 			}
 		}
     	// }
