@@ -40,3 +40,4 @@ label->replaceWidget(label, button);
 
 ## Resources
 https://stackoverflow.com/questions/16795494/add-widgets-to-a-scrollarea
+https://asmaloney.com/2016/03/code/using-c11-lambdas-as-qt-slots/
