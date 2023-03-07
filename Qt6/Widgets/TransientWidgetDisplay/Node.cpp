@@ -107,14 +107,19 @@ void Node::paint(QPainter *painter,
 }
 
 void Node::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-	qDebug() << "Node::mousePressEvent";
 	if (_panel->count()==0) {
+		// qDebug() << "Node::mousePressEvent count == 0 [add]";
 		_panel->addWidget(&_ui);
 	} else {
 		// replace
+		// qDebug() << "Node::mousePressEvent count != 0 [replace]";
 		QWidget *pExistingWidget = _panel->itemAt(0)->widget();
-		_panel->replaceWidget(pExistingWidget, &_ui);
-		pExistingWidget->setParent(nullptr); // Important, otherwise it still shows up
+		if (pExistingWidget != &_ui) {
+			// Only if not the same widget
+			_panel->replaceWidget(pExistingWidget, &_ui);
+			// std::cout << boost::format("replace pExistingWidget=%p _ui=%p") % pExistingWidget % &_ui << std::endl;
+			pExistingWidget->setParent(nullptr); // Important, otherwise it still shows up
+		}
 	}
 
     QGraphicsItem::mousePressEvent(event);
@@ -127,6 +132,6 @@ void Node::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 }
 
 void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
-	qDebug() << "Node::mouseReleaseEvent";
+	// qDebug() << "Node::mouseReleaseEvent";
     QGraphicsItem::mouseReleaseEvent(event);
 }

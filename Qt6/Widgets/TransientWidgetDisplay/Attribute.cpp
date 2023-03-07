@@ -81,5 +81,5 @@ QWidget * Attribute::widget() {
 }
 
 void Attribute::updateValue(int value) {
-	printf("updateValue(%d)\n",value);
+	// printf("updateValue(%d)\n",value);
 }
