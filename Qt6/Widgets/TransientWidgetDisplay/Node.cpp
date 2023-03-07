@@ -9,6 +9,7 @@
 #include <QString>
 #include <QDebug>
 #include <QList>
+#include <QSlider>
 
 #include <iostream>
 
@@ -56,44 +57,23 @@ Node::Node(const std::string &name,
 			nlohmann::json in_attributes = attributes["in"];
 			total_attribute_count += in_attributes.size();
 			std::cout << boost::format("in_attributes.size() = %1%") % in_attributes.size() << std::endl;
-#ifdef OLD
-			for (nlohmann::json::iterator it = in_attributes.begin(); it != in_attributes.end(); ++it) {
-				std::cout << it.key() << std::endl;
-				std::cout << it.value()["type"] << std::endl;
-				std::string type = it.value()["type"];
-				if (type.compare("string")==0) {
-			    	_ui.layout()->addWidget(attributeLineEditWidget(it.key().c_str()));
-				} else if (type.compare("int")==0) {
-					if (!it.value()["range"].is_null()) {
-						Range range;
-						range.first.setValue<int>(it.value()["range"][0]);
-						range.second.setValue<int>(it.value()["range"][1]);
-						_ui.layout()->addWidget(attributeSliderWidget(it.key().c_str(),&range));
-					} else {
-						_ui.layout()->addWidget(attributeSliderWidget(it.key().c_str()));
-					}
-				}
-			}
-#else // OLD
 		    for (nlohmann::json::iterator in_attr = in_attributes.begin(); in_attr != in_attributes.end(); ++in_attr) {
-		            float y = attributeStartY + index * attributeDeltaY;
-		            std::string key = in_attr.key();
-					std::string attr_type = in_attr.value()["type"];
+				float y = attributeStartY + index * attributeDeltaY;
+				std::string key = in_attr.key();
+				std::string type = in_attr.value()["type"];
 
-		            Attribute *attr = new Attribute(key, true, attributeWidth, y, attr_type, _fontMetrics, this);
-		            _in_sockets.insert(AttributeContainer::value_type(key,attr));
-		            /*
-		             * We do attribute text writing in the Attribute item itself so that it is self contained
-		            QRectF tightRect = font_metric.tightBoundingRect(QString::fromStdString(key));
-		            QRectF textRect = attr->mapToParent(tightRect).boundingRect();
-		            textRect.translate(attr->boundingRect().width(),
-		                            attr->boundingRect().height() * 0.65);
-		            _in_textRect.insert(RectContainer::value_type(key,textRect));
-		            */
-		            index++;
+				Attribute *attr = new Attribute(key, true, attributeWidth, y, type, _fontMetrics, this);
+				_in_sockets.insert(AttributeContainer::value_type(key,attr));
+		    	_ui.layout()->addWidget(attr->widget());
+
+		    	/*
+				QSlider *slider = _ui.findChild<QSlider *>();
+				if (slider) {
+					_ui.connect(slider, &QSlider::valueChanged, slider, QSlider::valueChanged);
+				}
+				*/
+				index++;
 		    }
-
-#endif // OLD
 		}
 
 		if (attributes.contains("out")) {

@@ -21,6 +21,8 @@ public:
     virtual void paint(QPainter *painter,
     				   const QStyleOptionGraphicsItem *option,
 					   QWidget *widget = nullptr);
+    QWidget *widget();
+    void updateValue(int value);
 protected:
     QPainterPath getPainterPath() const;
 private:
@@ -33,6 +35,7 @@ private:
 	std::string _label;
     std::string _type;
     const QFontMetrics *_fontMetrics;
+    QWidget *_widget;
 };
 
 typedef std::map<std::string,Attribute*> AttributeContainer;
