@@ -30,12 +30,12 @@ AppMainWindow::AppMainWindow(QWidget *parent)
 
         //
     	QScrollArea *pScrollArea = findChild<QScrollArea *>("scrollArea");
-    	_panel = new QVBoxLayout();
+    	_panel = new QVBoxLayout(_scrollAreaWidgetContents);
     	_panel->setObjectName("scrollAreaHBoxLayout");
-    	_panel->setContentsMargins(QMargins(0, 0, 0, 0));
+    	// _panel->setContentsMargins(QMargins(0, 0, 0, 0));
 		_panel->setAlignment(Qt::AlignTop|Qt::AlignLeft);
 
-    	pScrollArea->setLayout(_panel);
+    	// pScrollArea->setLayout(_panel);
 
     	// setup panel pointer in scene (so it can do add node with panel pointer
     	{
