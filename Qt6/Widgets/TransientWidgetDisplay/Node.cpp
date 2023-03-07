@@ -66,12 +66,6 @@ Node::Node(const std::string &name,
 				_in_sockets.insert(AttributeContainer::value_type(key,attr));
 		    	_ui.layout()->addWidget(attr->widget());
 
-		    	/*
-				QSlider *slider = _ui.findChild<QSlider *>();
-				if (slider) {
-					_ui.connect(slider, &QSlider::valueChanged, slider, QSlider::valueChanged);
-				}
-				*/
 				index++;
 		    }
 		}
