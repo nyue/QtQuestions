@@ -1,9 +1,12 @@
 #include "Scene.h"
 
 #include <cassert>
+#include <iostream>
 
 #include <QFont>
 #include <QFontMetrics>
+
+#include <boost/format.hpp>
 
 Scene::Scene(QObject *parent)
 :_panel(0) {
@@ -41,6 +44,17 @@ Node* Scene::addNode() {
 				{"value",0},
 				{"range",{0,5}}
 		};
+		const size_t num_extra_string_attributes = 32;
+		const size_t num_extra_int_attributes = 3;
+		for (auto i=0;i<num_extra_string_attributes;i++) {
+			std::string attribute_name = (boost::format("sattr_%04d") % i).str();
+			std::cout << boost::format("attribute_name = '%1%'") % attribute_name << std::endl;
+			in_attributes[attribute_name] = {
+					{"type","string"},
+					{"value",""},
+					{"range",nullptr}
+			};
+		}
 		/*
 		in_attributes["angle"] = {
 				{"type","real"},
