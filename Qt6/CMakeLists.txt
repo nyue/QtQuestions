@@ -9,6 +9,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+find_package(Boost REQUIRED)
 find_package(nlohmann_json REQUIRED)
 if (USE_QT5)
   find_package (Qt5
@@ -17,6 +18,7 @@ if (USE_QT5)
   set(q_link_libraries
 	Qt5::Widgets
 	nlohmann_json::nlohmann_json
+	Boost::headers
 	)
 else(USE_QT5)
   find_package (Qt6
@@ -25,6 +27,7 @@ else(USE_QT5)
   set(q_link_libraries
 	Qt6::Widgets
 	nlohmann_json::nlohmann_json
+	Boost::headers
 	)
 endif(USE_QT5)
 
