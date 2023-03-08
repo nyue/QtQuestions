@@ -13,6 +13,8 @@
 
 #include <nlohmann/json.hpp>
 
+#include <memory>
+
 class Node : public QGraphicsItem
 {
 public:
@@ -42,5 +44,5 @@ private:
     AttributeContainer _out_plugs;
     const QFontMetrics *_fontMetrics;
 };
-
-typedef std::map<std::string, Node*> NodeContainer;
+typedef std::shared_ptr<Node> NodeShdPtr;
+typedef std::map<std::string, NodeShdPtr> NodeContainer;
