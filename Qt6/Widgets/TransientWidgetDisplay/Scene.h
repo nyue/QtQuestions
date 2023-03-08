@@ -8,6 +8,7 @@ class Scene: public QGraphicsScene {
 Q_OBJECT
 public:
 	Scene(QObject *parent = nullptr);
+	virtual ~Scene();
 	void updateScene();
 	Node* addNode();
 	void setPanel(QVBoxLayout* panel);

@@ -13,8 +13,11 @@ Scene::Scene(QObject *parent)
 	_fontMetrics = new QFontMetrics(property("font").value<QFont>());
 }
 
-void Scene::updateScene() {
+Scene::~Scene() {
 	delete _fontMetrics;
+}
+
+void Scene::updateScene() {
 }
 
 Node* Scene::addNode() {
