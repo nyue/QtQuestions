@@ -48,7 +48,7 @@ Node* Scene::addNode() {
 				{"value",0},
 				{"range",{0,5}}
 		};
-		/*
+
 		const size_t num_extra_string_attributes = 32;
 		const size_t num_extra_int_attributes = 3;
 		for (auto i=0;i<num_extra_string_attributes;i++) {
@@ -60,7 +60,7 @@ Node* Scene::addNode() {
 					{"range",nullptr}
 			};
 		}
-		*/
+
 		/*
 		in_attributes["angle"] = {
 				{"type","real"},

@@ -38,7 +38,7 @@ private:
     float _height;
     float _radius;
     QPen _pen;
-	QWidget _ui;
+	QWidget *_ui;
 	QVBoxLayout* _panel; // where to update/replace the UI when node is selected
     AttributeContainer _in_sockets;
     AttributeContainer _out_plugs;

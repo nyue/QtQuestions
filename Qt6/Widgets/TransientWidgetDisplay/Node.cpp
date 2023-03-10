@@ -27,6 +27,7 @@ Node::Node(const std::string &name,
 ,_radius(nodeRadius)
 ,_name(name)
 ,_fontMetrics(fontMetrics)
+,_ui(new QWidget())
 {
 
 	std::cout << "Node::Node()" << std::endl;
@@ -39,9 +40,9 @@ Node::Node(const std::string &name,
     {
     	// Minimally, add a label so we know which node this UI belongs to when
     	// it is being shown
-    	_ui.setLayout(new QVBoxLayout());
-    	_ui.layout()->setAlignment(Qt::AlignTop|Qt::AlignLeft);
-    	_ui.layout()->addWidget(new QLabel(name.c_str()));
+    	_ui->setLayout(new QVBoxLayout());
+    	_ui->layout()->setAlignment(Qt::AlignTop|Qt::AlignLeft);
+    	_ui->layout()->addWidget(new QLabel(name.c_str()));
 
 
     	// Setup
@@ -64,7 +65,7 @@ Node::Node(const std::string &name,
 
 				Attribute *attr = new Attribute(key, true, attributeWidth, y, type, _fontMetrics, this);
 				_in_sockets.insert(AttributeContainer::value_type(key,attr));
-		    	_ui.layout()->addWidget(attr->widget());
+		    	_ui->layout()->addWidget(attr->widget());
 
 				index++;
 		    }
@@ -109,14 +110,14 @@ void Node::paint(QPainter *painter,
 void Node::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 	if (_panel->count()==0) {
 		// qDebug() << "Node::mousePressEvent count == 0 [add]";
-		_panel->addWidget(&_ui);
+		_panel->addWidget(_ui);
 	} else {
 		// replace
 		// qDebug() << "Node::mousePressEvent count != 0 [replace]";
 		QWidget *pExistingWidget = _panel->itemAt(0)->widget();
-		if (pExistingWidget != &_ui) {
+		if (pExistingWidget != _ui) {
 			// Only if not the same widget
-			_panel->replaceWidget(pExistingWidget, &_ui);
+			_panel->replaceWidget(pExistingWidget, _ui);
 			// std::cout << boost::format("replace pExistingWidget=%p _ui=%p") % pExistingWidget % &_ui << std::endl;
 			pExistingWidget->setParent(nullptr); // Important, otherwise it still shows up
 		}
