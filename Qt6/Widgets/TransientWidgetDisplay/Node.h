@@ -13,6 +13,8 @@
 
 #include <nlohmann/json.hpp>
 
+#include <memory>
+
 class Node : public QGraphicsItem
 {
 public:
@@ -36,11 +38,11 @@ private:
     float _height;
     float _radius;
     QPen _pen;
-	QWidget _ui;
+	QWidget *_ui;
 	QVBoxLayout* _panel; // where to update/replace the UI when node is selected
     AttributeContainer _in_sockets;
     AttributeContainer _out_plugs;
     const QFontMetrics *_fontMetrics;
 };
-
-typedef std::map<std::string, Node*> NodeContainer;
+typedef std::shared_ptr<Node> NodeShdPtr;
+typedef std::map<std::string, NodeShdPtr> NodeContainer;

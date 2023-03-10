@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "Node.h"
 
 #include <cassert>
 #include <iostream>
@@ -47,6 +48,7 @@ Node* Scene::addNode() {
 				{"value",0},
 				{"range",{0,5}}
 		};
+
 		const size_t num_extra_string_attributes = 32;
 		const size_t num_extra_int_attributes = 3;
 		for (auto i=0;i<num_extra_string_attributes;i++) {
@@ -58,6 +60,7 @@ Node* Scene::addNode() {
 					{"range",nullptr}
 			};
 		}
+
 		/*
 		in_attributes["angle"] = {
 				{"type","real"},
@@ -68,10 +71,13 @@ Node* Scene::addNode() {
 		nlohmann::json out_attributes = {};
 		attributes["in"] = in_attributes;
 		attributes["out"] = out_attributes;
-		nodePtr = new Node(nodeName, attributes, _fontMetrics, _panel);
-		this->addItem(nodePtr);
-		std::pair<NodeContainer::iterator, bool> iResult = _nodes.insert(NodeContainer::value_type(nodeName, nodePtr));
-		assert(iResult.second);
+		std::pair<NodeContainer::iterator, bool> iResult = _nodes.insert(NodeContainer::value_type(nodeName, NodeShdPtr()));
+		if (iResult.second) {
+			iResult.first->second.reset(new Node(nodeName, attributes, _fontMetrics, _panel));
+			assert(iResult.second);
+			nodePtr = iResult.first->second.get();
+			this->addItem(nodePtr);
+		}
 	}
 	return nodePtr;
 

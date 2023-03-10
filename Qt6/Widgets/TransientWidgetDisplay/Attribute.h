@@ -7,6 +7,7 @@
 
 #include <map>
 #include <string>
+#include <memory>
 
 class Attribute: public QGraphicsItem {
 public:
@@ -38,4 +39,5 @@ private:
     QWidget *_widget;
 };
 
-typedef std::map<std::string,Attribute*> AttributeContainer;
+typedef std::shared_ptr<Attribute> AttributeShdPtr;
+typedef std::map<std::string,AttributeShdPtr> AttributeContainer;
