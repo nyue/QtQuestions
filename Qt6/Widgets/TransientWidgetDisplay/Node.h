@@ -24,6 +24,10 @@ public:
          const QFontMetrics *fontMetrics,
 		 QVBoxLayout* panel,
 		 QGraphicsItem *parent = nullptr);
+	Node(const std::string& name,
+		 const nlohmann::json& attributes,
+         const QFontMetrics *fontMetrics,
+		 QGraphicsItem *parent = nullptr);
 	virtual ~Node();
 	virtual QRectF boundingRect() const;
 	virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

@@ -6,6 +6,9 @@
 
 #include <QFont>
 #include <QFontMetrics>
+#include <QLabel>
+#include <QLineEdit>
+#include <QSlider>
 
 #include <boost/format.hpp>
 
@@ -15,13 +18,15 @@ Scene::Scene(QObject *parent)
 }
 
 Scene::~Scene() {
+	std::cout << "Scene::~Scene() destructor" << std::endl;
 	delete _fontMetrics;
 }
 
 void Scene::updateScene() {
 }
 
-Node* Scene::addNode() {
+#ifdef OLD_APPROACH
+Node* Scene::addNodeOld() {
 	Node* nodePtr = nullptr;
 	if (_panel) {
 		/*
@@ -82,6 +87,25 @@ Node* Scene::addNode() {
 	return nodePtr;
 
 }
+#else // OLD_APPROACH
+
+void Scene::addNode() {
+	char nodeName[1024];
+	int sResult = sprintf(nodeName, "Node%04lu", _nodesAndUIs.size());
+	nlohmann::json attributes;
+	nlohmann::json in_attributes = {};
+	nlohmann::json out_attributes = {};
+	attributes["in"] = in_attributes;
+	attributes["out"] = out_attributes;
+
+	std::pair<NodeUIContainer::iterator, bool> iResult = _nodesAndUIs.insert(NodeUIContainer::value_type(nodeName, NodeUI()));
+	if (iResult.second) {
+		iResult.first->second._node.reset(new Node(nodeName, attributes, _fontMetrics));
+		// iResult.first->second.reset(new Node(nodeName, attributes, _fontMetrics, _panel));
+		addItem(iResult.first->second._node.get());
+	}
+}
+#endif // OLD_APPROACH
 
 void Scene::setPanel(QVBoxLayout* panel) {
 	_panel = panel;
@@ -93,4 +117,23 @@ void Scene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
 void Scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
 	QGraphicsScene::mouseReleaseEvent(event);
+}
+
+void Scene::createLineEditWidget(const QString& name, QWidget* parent) {
+	QHBoxLayout *hbox = new QHBoxLayout(parent);
+	parent->setLayout(hbox);
+	hbox->addWidget(new QLabel(name, parent));
+	hbox->addWidget(new QLineEdit(parent));
+
+}
+
+void Scene::createSliderWidget(const QString& name, const Range* range, QWidget* parent) {
+	QHBoxLayout *hbox = new QHBoxLayout(parent);
+	parent->setLayout(hbox);
+	hbox->addWidget(new QLabel(name, parent));
+	hbox->addWidget(new QLineEdit(parent));
+	QSlider* slider = new QSlider(Qt::Horizontal, parent);
+	if (range)
+		slider->setRange(range->first.toInt(), range->second.toInt());
+	hbox->addWidget(slider);
 }

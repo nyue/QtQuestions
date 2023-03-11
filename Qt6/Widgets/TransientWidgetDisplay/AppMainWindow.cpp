@@ -68,7 +68,11 @@ void AppMainWindow::OnAdd() {
     	Scene *sptr = dynamic_cast<Scene*>(vptr->scene());
     	if (sptr) {
         	qDebug() << "OnAdd() Castable Scene";
-        	Node* nptr = sptr->addNode();
+#ifdef OLD_APPROACH
+        	Node* nptr = sptr->addNodeOld();
+#else // OLD_APPROACH
+        	sptr->addNode();
+#endif // OLD_APPROACH
     	}
     }
 #endif // DIRECT_PANEL

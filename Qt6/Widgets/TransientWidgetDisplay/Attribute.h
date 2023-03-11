@@ -10,12 +10,14 @@
 #include <memory>
 
 class Attribute: public QGraphicsItem {
+	typedef std::pair<QVariant,QVariant> Range;
 public:
 	Attribute(const std::string &name,
 			  bool labelOnRight,
 			  float x, float y,
 			  const std::string &type,
 		      const QFontMetrics *fontMetrics,
+			  QWidget *widgetParent,
 			  QGraphicsItem *parent = nullptr);
     virtual ~Attribute();
     virtual QRectF boundingRect() const;
@@ -27,6 +29,8 @@ public:
 protected:
     QPainterPath getPainterPath() const;
 private:
+    void createLineEditWidget(const QString& name, QWidget* parent);
+    void createSliderWidget(const QString& name, const Range* range, QWidget* parent);
     QPen _pen;
     float _width;
 	float _height;

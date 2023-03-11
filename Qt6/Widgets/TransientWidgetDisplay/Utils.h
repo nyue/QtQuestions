@@ -5,5 +5,5 @@
 #include <QVariant>
 
 typedef std::pair<QVariant,QVariant> Range;
-QWidget* attributeSliderWidget(const QString& name, const Range* range=nullptr, QWidget* parent=nullptr);
-QWidget* attributeLineEditWidget(const QString& name, QWidget* parent=nullptr);
+void attributeSliderWidget(const QString& name, const Range* range, QWidget* parent);
+void attributeLineEditWidget(const QString& name, QWidget* parent);

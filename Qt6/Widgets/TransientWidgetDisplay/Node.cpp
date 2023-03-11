@@ -15,6 +15,23 @@
 
 #include <boost/format.hpp>
 
+Node::Node(const std::string& name,
+		 const nlohmann::json& attributes,
+         const QFontMetrics *fontMetrics,
+		 QGraphicsItem *parent)
+:QGraphicsItem(parent)
+,_width(nodeWidth)
+,_height(nodeHeight)
+,_radius(nodeRadius)
+,_name(name)
+,_fontMetrics(fontMetrics)
+{
+	_pen.setWidth(1.0);
+    setFlag(QGraphicsItem::ItemIsMovable, true);
+    setFlag(QGraphicsItem::ItemIsSelectable, true);
+
+}
+
 Node::Node(const std::string &name,
 		   const nlohmann::json& attributes,
            const QFontMetrics *fontMetrics,
@@ -29,6 +46,7 @@ Node::Node(const std::string &name,
 ,_fontMetrics(fontMetrics)
 ,_ui(new QWidget())
 {
+	_ui->setObjectName(QString(name.c_str())+QString("_ui"));
 
 	std::cout << "Node::Node()" << std::endl;
 	_pen.setWidth(1.0);
@@ -63,7 +81,7 @@ Node::Node(const std::string &name,
 				std::string key = in_attr.key();
 				std::string type = in_attr.value()["type"];
 
-				Attribute *attr = new Attribute(key, true, attributeWidth, y, type, _fontMetrics, this);
+				Attribute *attr = new Attribute(key, true, attributeWidth, y, type, _fontMetrics, _ui, this);
 				_in_sockets.insert(AttributeContainer::value_type(key,attr));
 		    	_ui->layout()->addWidget(attr->widget());
 
@@ -83,7 +101,7 @@ Node::Node(const std::string &name,
 }
 
 Node::~Node() {
-
+	std::cout << "Node::~Node() destructor" << std::endl;
 }
 
 int Node::type() const {
@@ -108,6 +126,7 @@ void Node::paint(QPainter *painter,
 }
 
 void Node::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+#ifdef OLD_APPROACH
 	if (_panel->count()==0) {
 		// qDebug() << "Node::mousePressEvent count == 0 [add]";
 		_panel->addWidget(_ui);
@@ -122,6 +141,8 @@ void Node::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 			pExistingWidget->setParent(nullptr); // Important, otherwise it still shows up
 		}
 	}
+#else // OLD_APPROACH
+#endif // OLD_APPROACH
 
     QGraphicsItem::mousePressEvent(event);
 }

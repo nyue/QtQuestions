@@ -5,7 +5,7 @@ add_executable(twd
   Attribute.cpp
   Scene.cpp
   View.cpp
-  Utils.cpp
+  # Utils.cpp
   )
 
 target_link_libraries(twd PRIVATE

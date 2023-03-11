@@ -4,25 +4,20 @@
 #include <QLineEdit>
 #include <QSlider>
 
-QWidget* attributeSliderWidget(const QString& name, const Range* range, QWidget* parent) {
-
-	QWidget* result = new QWidget(parent);
-	QHBoxLayout *hbox = new QHBoxLayout();
-	result->setLayout(hbox);
-	hbox->addWidget(new QLabel(name));
-	hbox->addWidget(new QLineEdit());
-	QSlider* slider = new QSlider(Qt::Horizontal);
+void attributeSliderWidget(const QString& name, const Range* range, QWidget* parent) {
+	QHBoxLayout *hbox = new QHBoxLayout(parent);
+	parent->setLayout(hbox);
+	hbox->addWidget(new QLabel(name, parent));
+	hbox->addWidget(new QLineEdit(parent));
+	QSlider* slider = new QSlider(Qt::Horizontal, parent);
 	if (range)
 		slider->setRange(range->first.toInt(), range->second.toInt());
 	hbox->addWidget(slider);
-	return result;
 }
 
-QWidget* attributeLineEditWidget(const QString& name, QWidget* parent) {
-	QWidget* result = new QWidget(parent);
-	QHBoxLayout *hbox = new QHBoxLayout();
-	result->setLayout(hbox);
-	hbox->addWidget(new QLabel(name));
-	hbox->addWidget(new QLineEdit());
-	return result;
+void attributeLineEditWidget(const QString& name, QWidget* parent) {
+	QHBoxLayout *hbox = new QHBoxLayout(parent);
+	parent->setLayout(hbox);
+	hbox->addWidget(new QLabel(name, parent));
+	hbox->addWidget(new QLineEdit(parent));
 }
