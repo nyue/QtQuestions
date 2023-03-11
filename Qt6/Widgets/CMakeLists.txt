@@ -1,1 +1,2 @@
 add_subdirectory(TransientWidgetDisplay)
+add_subdirectory(CustomWidgetTransientWidgetDisplay)
