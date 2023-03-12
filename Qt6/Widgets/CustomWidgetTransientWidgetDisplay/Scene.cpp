@@ -27,8 +27,10 @@ void Scene::updateScene() {
 }
 
 void Scene::addNode() {
+	nlohmann::json attributes;
+	dummyAttributeSetup(attributes);	
 	std::string node_name = (boost::format("Node_%04d") % items().count()).str();
-    Node *node_ptr = new Node(node_name);
+    Node *node_ptr = new Node(node_name, attributes);
     /*
     ParametersWidget *pw_ptr = new ParametersWidget(node_name);
     _nodeParameters.insert(NodeParametersMap::value_type(node_ptr,pw_ptr));
@@ -98,4 +100,47 @@ void Scene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
 void Scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
 	QGraphicsScene::mouseReleaseEvent(event);
+}
+
+void Scene::dummyAttributeSetup(nlohmann::json& attributes) {
+	nlohmann::json in_attributes;
+	in_attributes["command"] = {
+                                {"type","string"},
+                                {"value",""},
+                                {"range",nullptr}
+	};
+	in_attributes["stdin"] = {
+							  {"type","string"},
+							  {"value",""},
+							  {"range",nullptr}
+	};
+	in_attributes["sections"] = {
+								 {"type","int"},
+								 {"value",0},
+								 {"range",{0,5}}
+	};
+	
+	const size_t num_extra_string_attributes = 32;
+	const size_t num_extra_int_attributes = 3;
+	for (auto i=0;i<num_extra_string_attributes;i++) {
+		std::string attribute_name = (boost::format("sattr_%04d") % i).str();
+		std::cout << boost::format("attribute_name = '%1%'") % attribute_name << std::endl;
+		in_attributes[attribute_name] = {
+										 {"type","string"},
+										 {"value",""},
+										 {"range",nullptr}
+		};
+	}
+	
+	/*
+	  in_attributes["angle"] = {
+	  {"type","real"},
+	  {"value",0.0},
+	  {"range",{0.0,360.0}}
+	  };
+	*/
+	nlohmann::json out_attributes = {};
+	attributes["in"] = in_attributes;
+	attributes["out"] = out_attributes;
+	
 }

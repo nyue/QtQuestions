@@ -11,7 +11,7 @@
 #include <QWidget>
 #include <QVBoxLayout>
 
-// later #include <nlohmann/json.hpp>
+#include <nlohmann/json.hpp>
 
 #include <memory>
 
@@ -20,8 +20,8 @@ class Node : public QGraphicsItem
 public:
     enum { Type = UserType + CustomGraphicsItemType::NodeItemType };
 	Node(const std::string& name,
-		 /* later
 		 const nlohmann::json& attributes,
+		 /* later
          const QFontMetrics *fontMetrics,
 		 QVBoxLayout* panel,
 		 */
@@ -51,7 +51,6 @@ private:
     AttributeContainer _out_plugs;
     const QFontMetrics *_fontMetrics;
 	*/
-	void dummyAttributeSetup(lohmann::json& attributes); // dummy for now, eventually need to get them from the API Nov::Node SDK
 };
 // typedef std::shared_ptr<Node> NodeShdPtr;
 // typedef std::map<std::string, Node*> NodeContainer;
