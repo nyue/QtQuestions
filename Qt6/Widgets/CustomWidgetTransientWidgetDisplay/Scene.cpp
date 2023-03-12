@@ -64,30 +64,6 @@ void Scene::replaceParamaters(Node* node_ptr) {
 		}
 	}
 	return;
-	if (_panel->count()==1) {
-		QWidget *pAchorWidget = _panel->itemAt(0)->widget();
-		if (node_ptr->getUI()->parentWidget() != pAchorWidget) {
-			std::cout << "Scene::replaceParamaters SOMETHING TO DO" << std::endl;
-			// node_ptr->getUI()->setParent(_panel);
-			_panel->addWidget(node_ptr->getUI());
-		} else {
-			std::cout << "Scene::replaceParamaters NOTHING TO DO" << std::endl;
-		}
-		/*
-		QWidget *pExistingWidget = _panel->itemAt(0)->widget();
-		if (pExistingWidget != node_ptr->getUI()) {
-			// Only if not the same widget
-			printf("INSIDE ZZZZZZZZZZZZZZZZ\n");
-			_panel->replaceWidget(pExistingWidget, node_ptr->ui());
-			pExistingWidget->setParent(nullptr); // Important, otherwise it still shows up
-		}
-		*/
-	} else {
-		std::cout << "Scene::replaceParamaters _panel non zero" << std::endl;
-
-	}
-
-
 }
 
 void Scene::setPanel(QVBoxLayout* panel) {
