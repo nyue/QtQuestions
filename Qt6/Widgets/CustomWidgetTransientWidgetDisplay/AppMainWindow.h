@@ -16,6 +16,8 @@ private:
     Ui::MainWindow *ui;
     QWidget *_scrollAreaWidgetContents;
     QVBoxLayout *_panel;
+    std::vector<QVBoxLayout *> _parametersPanels;
+
 private slots:
 	void OnAdd();
     void OnReplace();

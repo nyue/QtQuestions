@@ -1,4 +1,6 @@
 #include "Node.h"
+#include "Scene.h"
+#include "ParametersWidget.h"
 
 #include <QPainter>
 #include <QPointF>
@@ -26,10 +28,10 @@ Node::Node(const std::string &name,
 	,_width(nodeWidth)
 	,_height(nodeHeight)
 	,_radius(nodeRadius)
+	,_uiParent(new QWidget())
 	 /* later
 		,_panel(panel)
 		,_fontMetrics(fontMetrics)
-		,_ui(new QWidget())
 	 */
 {
 	std::cout << "Node::Node()" << std::endl;
@@ -37,14 +39,20 @@ Node::Node(const std::string &name,
 	
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
+
+    _parameterUI = new ParametersWidget(name,_uiParent);
 }
 
 Node::~Node() {
-	
+	delete _uiParent;
 }
 
 int Node::type() const {
 	return Type;
+}
+
+const std::string& Node::name() const {
+	return _name;
 }
 
 QRectF Node::boundingRect() const {
@@ -65,7 +73,8 @@ void Node::paint(QPainter *painter,
 }
 
 void Node::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    QGraphicsItem::mousePressEvent(event);
+	qDebug() << "Node::mousePressEvent()";
+	QGraphicsItem::mousePressEvent(event);
 }
 
 void Node::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
@@ -75,5 +84,18 @@ void Node::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 
 void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
 	// qDebug() << "Node::mouseReleaseEvent";
+	Scene *myScene = dynamic_cast<Scene *>(scene());
+	if (myScene) {
+		qDebug() << "Node::mouseReleaseEvent myScene";
+		myScene->replaceParamaters(this);
+	}
     QGraphicsItem::mouseReleaseEvent(event);
+}
+
+QWidget * Node::getUI() const {
+	return _parameterUI;
+}
+
+void Node::returnUI(QWidget *ui) {
+	ui->setParent(_uiParent);
 }

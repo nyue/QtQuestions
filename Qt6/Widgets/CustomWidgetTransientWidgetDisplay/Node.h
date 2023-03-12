@@ -30,6 +30,9 @@ public:
 	virtual QRectF boundingRect() const;
 	virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     int type() const;
+    const std::string& name() const;
+	QWidget *getUI() const;
+	void returnUI(QWidget *ui);
 protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
@@ -40,13 +43,14 @@ private:
     float _height;
     float _radius;
     QPen _pen;
+	QWidget *_uiParent;
+	QWidget *_parameterUI;
 	/* later
-	QWidget *_ui;
 	QVBoxLayout* _panel; // where to update/replace the UI when node is selected
     AttributeContainer _in_sockets;
     AttributeContainer _out_plugs;
     const QFontMetrics *_fontMetrics;
 	*/
 };
-typedef std::shared_ptr<Node> NodeShdPtr;
-typedef std::map<std::string, NodeShdPtr> NodeContainer;
+// typedef std::shared_ptr<Node> NodeShdPtr;
+typedef std::map<std::string, Node*> NodeContainer;

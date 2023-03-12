@@ -1,26 +1,33 @@
 #pragma once
 
 #include "Node.h"
+#include "ParametersWidget.h"
+
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QVBoxLayout>
 
+#include <map>
+
 class Scene: public QGraphicsScene {
-Q_OBJECT
+// Q_OBJECT unsure if this is necessary
 public:
 	Scene(QObject *parent = nullptr);
 	virtual ~Scene();
 	void updateScene();
 	void addNode();
-	// later void setPanel(QVBoxLayout* panel);
+	void replaceParamaters(Node* node_ptr);
+	void setPanel(QVBoxLayout* panel);
 protected:
 	virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);
 	// DO NOT IMPLEMENT
 	// virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 	virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 private:
-	NodeContainer _nodes;
-	// later QVBoxLayout *_panel; // to facilitate panel ui update/replace when adding Node
+	typedef std::map<const Node*,ParametersWidget*> NodeParametersMap;
+	NodeParametersMap _nodeParameters;
+	// NodeContainer _nodes;
+	QVBoxLayout *_panel; // to facilitate panel ui update/replace when adding Node
     // later QFontMetrics *_fontMetrics;
 };
 

@@ -16,6 +16,7 @@
 #include <QVBoxLayout>
 
 #include <iostream>
+#include <boost/format.hpp>
 
 AppMainWindow::AppMainWindow(QWidget *parent)
 : QMainWindow(parent)
@@ -33,6 +34,7 @@ AppMainWindow::AppMainWindow(QWidget *parent)
     	_panel = new QVBoxLayout(_scrollAreaWidgetContents);
     	_panel->setObjectName("scrollAreaHBoxLayout");
 		_panel->setAlignment(Qt::AlignTop|Qt::AlignLeft);
+		// _panel->addWidget(new QWidget()); // Dummy widget for replacement purpose ?
 
     	// pScrollArea->setLayout(_panel);
 
@@ -42,9 +44,19 @@ AppMainWindow::AppMainWindow(QWidget *parent)
     	    if (vptr) {
     	    	qDebug() << "OnAdd() Found View";
     	    	Scene *sptr = dynamic_cast<Scene*>(vptr->scene());
-    	    	// later sptr->setPanel(_panel);
+    	    	sptr->setPanel(_panel);
     	    }
     	}
+
+		// The following test shows that the scroll area works
+		if (false){
+			size_t num_labels = 50;
+			for (auto i=0;i<num_labels;i++) {
+				std::string label = (boost::format("Label %04d") % i).str();
+				_panel->addWidget(new QLabel(label.c_str()));
+			}
+		}
+
 }
 
 AppMainWindow::~AppMainWindow() {
