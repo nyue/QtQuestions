@@ -39,8 +39,12 @@ Node::Node(const std::string &name,
 	
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
+	
+	nlohmann::json attributes; // dummy for now, eventually need to get them from the API Nov::Node SDK
 
-    _parameterUI = new ParametersWidget(name,_uiParent);
+    _parameterUI = new ParametersWidget(name,
+										attributes,
+										_uiParent);
 }
 
 Node::~Node() {
@@ -98,4 +102,7 @@ QWidget * Node::getUI() const {
 
 void Node::returnUI(QWidget *ui) {
 	ui->setParent(_uiParent);
+}
+
+void Node::dummyAttributeSetup(lohmann::json& attributes) {
 }

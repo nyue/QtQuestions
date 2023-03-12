@@ -51,6 +51,7 @@ private:
     AttributeContainer _out_plugs;
     const QFontMetrics *_fontMetrics;
 	*/
+	void dummyAttributeSetup(lohmann::json& attributes); // dummy for now, eventually need to get them from the API Nov::Node SDK
 };
 // typedef std::shared_ptr<Node> NodeShdPtr;
-typedef std::map<std::string, Node*> NodeContainer;
+// typedef std::map<std::string, Node*> NodeContainer;

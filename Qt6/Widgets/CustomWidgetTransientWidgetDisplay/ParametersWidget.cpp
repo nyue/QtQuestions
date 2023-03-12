@@ -6,7 +6,9 @@
 #include <iostream>
 #include <boost/format.hpp>
 
-ParametersWidget::ParametersWidget(const std::string& label, QWidget *parent)
+ParametersWidget::ParametersWidget(const std::string& label,
+								   const nlohmann::json& attributes,
+								   QWidget *parent)
 :QWidget(parent)
 {
 	std::cout << boost::format("ParametersWidget::ParametersWidget label = '%1%'") % label << std::endl;
