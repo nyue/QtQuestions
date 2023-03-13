@@ -7,6 +7,8 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QVBoxLayout>
 
+#include <nlohmann/json.hpp>
+
 #include <map>
 
 class Scene: public QGraphicsScene {
@@ -29,5 +31,6 @@ private:
 	// NodeContainer _nodes;
 	QVBoxLayout *_panel; // to facilitate panel ui update/replace when adding Node
     // later QFontMetrics *_fontMetrics;
+	void dummyAttributeSetup(nlohmann::json& attributes); // dummy for now, eventually need to get them from the API Nov::Node SDK
 };
 

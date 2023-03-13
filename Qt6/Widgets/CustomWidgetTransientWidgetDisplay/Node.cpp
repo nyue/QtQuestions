@@ -17,8 +17,8 @@
 #include <boost/format.hpp>
 
 Node::Node(const std::string &name,
-		   /* later
 		   const nlohmann::json& attributes,
+		   /* later
            const QFontMetrics *fontMetrics,
 		   QVBoxLayout* panel,
 		   */
@@ -39,8 +39,11 @@ Node::Node(const std::string &name,
 	
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
-
-    _parameterUI = new ParametersWidget(name,_uiParent);
+	
+    _parameterUI = new ParametersWidget(name,
+										attributes,
+										this,
+										_uiParent);
 }
 
 Node::~Node() {
@@ -98,4 +101,8 @@ QWidget * Node::getUI() const {
 
 void Node::returnUI(QWidget *ui) {
 	ui->setParent(_uiParent);
+}
+
+void Node::onSliderValueChange(const QString& name, int value) {
+	std::cout << boost::format("Node::onSliderValueChange : node = '%1%' name = '%2%', value = %3%") % _name % name.toStdString() % value << std::endl;
 }
