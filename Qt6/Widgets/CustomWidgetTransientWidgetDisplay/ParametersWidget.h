@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QWidget>
+#include <QVariant>
+#include <QString>
 
 #include <nlohmann/json.hpp>
 
@@ -16,4 +18,8 @@ public:
 					 const nlohmann::json& attributes,
 					 QWidget *parent = nullptr);
 	virtual ~ParametersWidget();
+private:
+	typedef std::pair<QVariant,QVariant> Range;
+	void addSliderWidget(const QString& name, QWidget* parent, const Range* range=nullptr);
+	void addLineEditWidget(const QString& name, QWidget* parent);
 };
