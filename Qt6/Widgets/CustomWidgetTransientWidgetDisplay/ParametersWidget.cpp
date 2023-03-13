@@ -1,4 +1,5 @@
 #include "ParametersWidget.h"
+#include "Node.h"
 
 #include <QVBoxLayout>
 #include <QLabel>
@@ -10,8 +11,10 @@
 
 ParametersWidget::ParametersWidget(const std::string& label,
 								   const nlohmann::json& attributes,
+								   Node* node,
 								   QWidget *parent)
 :QWidget(parent)
+,_node(node)
 {
 	std::cout << boost::format("ParametersWidget::ParametersWidget label = '%1%'") % label << std::endl;
 	/* 'this' keyword is important, we tell the widget the parent within to be
@@ -50,6 +53,11 @@ void ParametersWidget::addSliderWidget(const QString& name, QVBoxLayout* layout,
 		slider->setRange(range->first.toInt(), range->second.toInt());
 	hbox->addWidget(slider);
 	layout->addWidget(result);
+    connect(slider, &QSlider::valueChanged,
+        [this, name](int value)
+        {
+    	onSliderValueChange(name, value);
+        });
 }
 
 void ParametersWidget::addLineEditWidget(const QString& name, QVBoxLayout* layout) {
@@ -60,3 +68,19 @@ void ParametersWidget::addLineEditWidget(const QString& name, QVBoxLayout* layou
 	hbox->addWidget(new QLineEdit());
 	layout->addWidget(result);
 }
+
+void ParametersWidget::onSliderValueChange(const QString& name, int value) {
+	// std::cout << boost::format("name = '%1%', value = %2%") % name.toStdString() % intValue << std::endl;
+	_node->onSliderValueChange(name, value);
+}
+
+/*
+void ParametersWidget::onSliderValueChange() {
+
+}
+
+void ParametersWidget::onTextEditValueChange() {
+
+}
+
+*/

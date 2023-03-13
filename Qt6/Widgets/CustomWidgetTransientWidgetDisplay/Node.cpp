@@ -42,6 +42,7 @@ Node::Node(const std::string &name,
 	
     _parameterUI = new ParametersWidget(name,
 										attributes,
+										this,
 										_uiParent);
 }
 
@@ -102,3 +103,6 @@ void Node::returnUI(QWidget *ui) {
 	ui->setParent(_uiParent);
 }
 
+void Node::onSliderValueChange(const QString& name, int value) {
+	std::cout << boost::format("Node::onSliderValueChange : node = '%1%' name = '%2%', value = %3%") % _name % name.toStdString() % value << std::endl;
+}

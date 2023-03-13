@@ -95,6 +95,11 @@ void Scene::dummyAttributeSetup(nlohmann::json& attributes) {
 								 {"value",0},
 								 {"range",{0,5}}
 	};
+	in_attributes["sides"] = {
+								 {"type","int"},
+								 {"value",0},
+								 {"range",{0,5}}
+	};
 	
 	const size_t num_extra_string_attributes = 2;
 	const size_t num_extra_int_attributes = 3;

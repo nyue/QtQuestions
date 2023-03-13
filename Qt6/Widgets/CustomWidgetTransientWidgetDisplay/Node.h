@@ -33,6 +33,7 @@ public:
     const std::string& name() const;
 	QWidget *getUI() const;
 	void returnUI(QWidget *ui);
+	void onSliderValueChange(const QString& name, int value);
 protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
