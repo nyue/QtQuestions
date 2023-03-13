@@ -14,30 +14,22 @@ ParametersWidget::ParametersWidget(const std::string& label,
 :QWidget(parent)
 {
 	std::cout << boost::format("ParametersWidget::ParametersWidget label = '%1%'") % label << std::endl;
-	QVBoxLayout *layout = new QVBoxLayout(this); // this keyword is important, we tell the widget the parent within be showed
+	/* 'this' keyword is important, we tell the widget the parent within to be
+	 * shown
+	 */
+	QVBoxLayout *layout = new QVBoxLayout(this);
 	layout->addWidget(new QLabel(label.c_str()));
-
 	if (attributes.contains("in")) {
 		nlohmann::json in_attributes = attributes["in"];
 	    for (nlohmann::json::iterator in_attr = in_attributes.begin(); in_attr != in_attributes.end(); ++in_attr) {
-#ifdef IMPL
-	    	if (_type.compare("string")==0) {
-	    		_widget = attributeLineEditWidget(_label.c_str());
-	    	} else if (_type.compare("int")==0) {
-	    		Range range;
-	    		range.first.setValue<int>(0);
-	    		range.second.setValue<int>(10);
-	    		_widget = attributeSliderWidget(_label.c_str(),&range);
-
-	    		// Register action
-	    		QSlider *slider = _widget->findChild<QSlider *>();
-	    		slider->connect(slider, &QSlider::valueChanged,
-	    	            [this](int intValue)
-	    	            {
-	    					updateValue(intValue);
-	    	            });
+	    	std::string label = in_attr.key();
+	    	nlohmann::json value = in_attr.value();
+	    	std::string type = value["type"];
+	    	if (type.compare("string")==0) {
+	    		addLineEditWidget(label.c_str(), layout);
+	    	} else if (type.compare("int")==0) {
+	    		addSliderWidget(label.c_str(), layout);
 	    	}
-#endif
 	    }
 	}
 }
@@ -47,8 +39,8 @@ ParametersWidget::~ParametersWidget()
 
 }
 
-void ParametersWidget::addSliderWidget(const QString& name, QWidget* parent, const Range* range) {
-	QWidget* result = new QWidget(parent);
+void ParametersWidget::addSliderWidget(const QString& name, QVBoxLayout* layout, const Range* range) {
+	QWidget* result = new QWidget();
 	QHBoxLayout *hbox = new QHBoxLayout();
 	result->setLayout(hbox);
 	hbox->addWidget(new QLabel(name));
@@ -57,12 +49,14 @@ void ParametersWidget::addSliderWidget(const QString& name, QWidget* parent, con
 	if (range)
 		slider->setRange(range->first.toInt(), range->second.toInt());
 	hbox->addWidget(slider);
+	layout->addWidget(result);
 }
 
-void ParametersWidget::addLineEditWidget(const QString& name, QWidget* parent) {
-	QWidget* result = new QWidget(parent);
+void ParametersWidget::addLineEditWidget(const QString& name, QVBoxLayout* layout) {
+	QWidget* result = new QWidget();
 	QHBoxLayout *hbox = new QHBoxLayout();
 	result->setLayout(hbox);
 	hbox->addWidget(new QLabel(name));
 	hbox->addWidget(new QLineEdit());
+	layout->addWidget(result);
 }

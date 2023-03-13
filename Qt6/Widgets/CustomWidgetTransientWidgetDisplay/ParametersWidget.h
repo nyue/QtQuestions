@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <QVariant>
 #include <QString>
+#include <QVBoxLayout>
 
 #include <nlohmann/json.hpp>
 
@@ -20,6 +21,6 @@ public:
 	virtual ~ParametersWidget();
 private:
 	typedef std::pair<QVariant,QVariant> Range;
-	void addSliderWidget(const QString& name, QWidget* parent, const Range* range=nullptr);
-	void addLineEditWidget(const QString& name, QWidget* parent);
+	void addSliderWidget(const QString& name, QVBoxLayout* layout, const Range* range=nullptr);
+	void addLineEditWidget(const QString& name, QVBoxLayout* layout);
 };

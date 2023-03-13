@@ -96,7 +96,7 @@ void Scene::dummyAttributeSetup(nlohmann::json& attributes) {
 								 {"range",{0,5}}
 	};
 	
-	const size_t num_extra_string_attributes = 32;
+	const size_t num_extra_string_attributes = 2;
 	const size_t num_extra_int_attributes = 3;
 	for (auto i=0;i<num_extra_string_attributes;i++) {
 		std::string attribute_name = (boost::format("sattr_%04d") % i).str();
