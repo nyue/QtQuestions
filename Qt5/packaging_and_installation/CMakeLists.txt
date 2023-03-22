@@ -1,3 +1,5 @@
+find_package(Boost COMPONENTS filesystem REQUIRED)
+
 add_library(util SHARED
   util.cpp
   util.h
@@ -12,6 +14,9 @@ set(REQUIRED_LIBS
   Qt5::Widgets
   Qt5::Core
   util
+  Boost::headers
+  Boost::filesystem
+  Boost::system
   )
 message("REQUIRED_LIBS = ${REQUIRED_LIBS}")
 
