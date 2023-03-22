@@ -1,8 +1,14 @@
-find_package(Boost COMPONENTS filesystem REQUIRED)
+find_package(Boost COMPONENTS filesystem system REQUIRED)
 
 add_library(util SHARED
   util.cpp
   util.h
+  )
+
+target_link_libraries(util
+  Boost::headers
+  Boost::filesystem
+  Boost::system
   )
 
 add_executable(package_install MACOSX_BUNDLE
@@ -14,9 +20,6 @@ set(REQUIRED_LIBS
   Qt5::Widgets
   Qt5::Core
   util
-  Boost::headers
-  Boost::filesystem
-  Boost::system
   )
 message("REQUIRED_LIBS = ${REQUIRED_LIBS}")
 
