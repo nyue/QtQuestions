@@ -1,3 +1,8 @@
+add_library(util SHARED
+  util.cpp
+  util.h
+  )
+
 add_executable(package_install MACOSX_BUNDLE
   MyMainWindow.cpp
   main.cpp
@@ -6,6 +11,7 @@ add_executable(package_install MACOSX_BUNDLE
 set(REQUIRED_LIBS
   Qt5::Widgets
   Qt5::Core
+  util
   )
 message("REQUIRED_LIBS = ${REQUIRED_LIBS}")
 
