@@ -1,11 +1,11 @@
-add_executable(package_install
+add_executable(package_install MACOSX_BUNDLE
   MyMainWindow.cpp
   main.cpp
   )
 
 set(REQUIRED_LIBS
-  Qt5::Core
   Qt5::Widgets
+  Qt5::Core
   )
 message("REQUIRED_LIBS = ${REQUIRED_LIBS}")
 
@@ -62,10 +62,11 @@ if (WIN32)
     DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/qtDeploy/"
     DESTINATION .
     )
-else (WIN32)
-
-  set(APPS $<TARGET_FILE:package_install>)  # paths to executables
-  set(QTDIRS "/home/nyue/systems/Qt/5.14.2/5.14.2/gcc_64/lib/libQt5Core.so")
+elseif (APPLE)
+  # /Users/nyue/Qt5.14.2/5.14.2/clang_64/bin/macdeployqt /Users/nyue/projects/Qt/questions/build/packaging_and_installation/package_install.app -dmg
+  message("HELLO WORLD")
+  set(APPS $<TARGET_BUNDLE_DIR:package_install>)  # paths to executables
+  # set(QTDIRS "/home/nyue/systems/Qt/5.14.2/5.14.2/gcc_64/lib/libQt5Core.so")
   set(DIRS ${LIB_DIRS})
 
   #    copy_and_fixup_bundle(/home/nyue/projects/Qt/QtQuestions/qt5_build/packaging_and_installation ${CMAKE_INSTALL_PREFIX} \"${QTLIBS}\" \"${QTLIBS}\")
@@ -75,7 +76,8 @@ else (WIN32)
     message(\"INSIDE APPS = ${APPS}\")
     message(\"INSIDE QTLIBS = ${QTLIBS}\")
     message(\"INSIDE DIRS = ${DIRS}\")
-    fixup_bundle($<TARGET_FILE:package_install> \"${QTLIBS}\" \"${DIRS}\")
+    fixup_bundle(\"${APPS}\" \"${QTLIBS}\" \"${DIRS}\")
   "
 	COMPONENT Runtime)
+else (WIN32)
 endif(WIN32)
