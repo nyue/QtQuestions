@@ -9,6 +9,7 @@ class MyMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         self.actionQuit.triggered.connect(QtWidgets.QApplication.instance().quit)
+        self.actionAbout_Plugins.setMenuRole(QtWidgets.QAction.MenuRole.AboutQtRole)
         self.actionAbout_Plugins.triggered.connect(self.about_Plugins)
 
     def about_Plugins(self):
