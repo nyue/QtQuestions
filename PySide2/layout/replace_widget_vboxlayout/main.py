@@ -17,9 +17,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.actionSlow.triggered.connect(self.Slow)
 
         self.emptyWidget = QtWidgets.QWidget()
-        self.verticalLayout.addWidget(QtWidgets.QLabel('Some header'))
+        self.verticalLayout.addWidget(QtWidgets.QLabel("Some header"))
         self.verticalLayout.addWidget(self.emptyWidget)
-        self.verticalLayout.addWidget(QtWidgets.QLabel('Some footer'))
+        self.verticalLayout.addWidget(QtWidgets.QLabel("Some footer"))
         self.verticalLayout.addStretch()
 
         self.slowWidget = QtWidgets.QLabel("Slow")
@@ -33,9 +33,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def Fast(self):
         itemToBeReplaced = self.verticalLayout.itemAt(1)
         if itemToBeReplaced:
-            print('Fast')
+            print("Fast")
             previousWidgetItem = self.verticalLayout.replaceWidget(
-                itemToBeReplaced.widget(), self.fastWidget)
+                itemToBeReplaced.widget(), self.fastWidget
+            )
             if previousWidgetItem:
                 previousWidgetItem.widget().setVisible(False)
                 self.fastWidget.setVisible(True)
@@ -43,9 +44,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def Slow(self):
         itemToBeReplaced = self.verticalLayout.itemAt(1)
         if itemToBeReplaced:
-            print('Slow')
+            print("Slow")
             previousWidgetItem = self.verticalLayout.replaceWidget(
-                itemToBeReplaced.widget(), self.slowWidget)
+                itemToBeReplaced.widget(), self.slowWidget
+            )
             if previousWidgetItem:
                 previousWidgetItem.widget().setVisible(False)
                 self.slowWidget.setVisible(True)
