@@ -45,7 +45,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         if dlg.exec() == 1:
             name = dlg.getName()
             type = dlg.getType()
-            print((name,type))
+            if name in self.inputTypes:
+                error_dialog = QtWidgets.QErrorMessage(self)
+                error_dialog.showMessage('Name already exists')
+            else:
+                self.inputTypes[name] = type
 
     def on_delete_button_clicked(self):
         print("Delete button clicked!")
