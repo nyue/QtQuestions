@@ -13,13 +13,14 @@ class TypesDialog(Ui_Dialog, QtWidgets.QDialog):
         # Run the .setupUi() method to show the GUI
         self.setupUi(self)
 
-        return self.typesComboBox.addItems(['String','Integer','Boolean'])
+        return self.typesComboBox.addItems(['String', 'Integer', 'Boolean'])
 
     def getName(self):
         return self.nameLineEdit.text()
 
     def getType(self):
         return self.typesComboBox.currentText()
+
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -35,6 +36,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # for use later
         self.verticalSpacer = QtWidgets.QSpacerItem(
             20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.contentLayout.addItem(self.verticalSpacer)
 
         # Some data
         self.inputTypes = {}  # { <name> : <type> }
@@ -50,9 +52,23 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 error_dialog.showMessage('Name already exists')
             else:
                 self.inputTypes[name] = type
+                button = QtWidgets.QPushButton(name, self)
+                button.clicked.connect(self.nameButtonClick)
+                self.contentLayout.insertWidget(0, button)
 
     def on_delete_button_clicked(self):
         print("Delete button clicked!")
+        # find selected, if none, do nothing
+
+    def nameButtonClick(self):
+        sender = self.sender()
+        if isinstance(sender, QtWidgets.QPushButton):
+            for i in range(self.contentLayout.count()-1):
+                item = self.contentLayout.itemAt(i).widget()
+                item.setFont(self.font())  # Reset font to default
+            label_font = sender.font()
+            label_font.setBold(True)
+            sender.setFont(label_font)
 
 
 app = QtWidgets.QApplication(sys.argv)
