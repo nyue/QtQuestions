@@ -41,6 +41,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # Some data
         self.inputTypes = {}  # { <name> : <type> }
 
+    def debug_print_selected(self):
+        self.contentLayout.count()-1):
+        
     def on_add_button_clicked(self):
         print("Add button clicked!")
         dlg = TypesDialog(self)
