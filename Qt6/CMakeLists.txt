@@ -22,10 +22,12 @@ if (USE_QT5)
 	)
 else(USE_QT5)
   find_package (Qt6
-	COMPONENTS Widgets
+	COMPONENTS Widgets Gui Core
 	REQUIRED)
   set(q_link_libraries
 	Qt6::Widgets
+	Qt6::Gui
+	Qt6::Core
 	nlohmann_json::nlohmann_json
 	Boost::headers
 	)
@@ -33,3 +35,4 @@ endif(USE_QT5)
 
 # add_subdirectory(3D)
 add_subdirectory(Widgets)
+add_subdirectory(UndoFramework)

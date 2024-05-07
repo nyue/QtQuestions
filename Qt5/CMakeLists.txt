@@ -9,7 +9,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 find_package(Qt5 COMPONENTS Core Gui Widgets OpenGL Network)
 
-#add_subdirectory(undo)
+add_subdirectory(undo)
 #add_subdirectory(custom_abstract_qgraphicsitem)
 add_subdirectory(packaging_and_installation)
 # add_subdirectory(contextmenu)
