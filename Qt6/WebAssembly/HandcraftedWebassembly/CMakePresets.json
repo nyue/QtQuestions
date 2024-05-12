@@ -1,0 +1,61 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+	"major": 3,
+	"minor": 25,
+	"patch": 0
+    },
+    "configurePresets": [
+	{
+	    "name": "debug",
+	    "displayName": "Debug Config",
+	    "description": "debug ebug build using Ninja generator",
+	    "generator": "Ninja",
+	    "environment": {
+	    },
+	    "cacheVariables": {
+		"CMAKE_BUILD_TYPE": "Debug",
+		"CMAKE_MODULE_PATH": "$env{CMAKE_UTIL_PATH};$env{CMAKE_MODULE_PATH}",
+		"Python3_EXECUTABLE": "python3"
+	    }
+	},
+	{
+	    "name": "ubuntu-debug",
+	    "displayName": "Ubuntu Debug Config",
+	    "description": "Ubuntu debug build using Ninja generator",
+	    "inherits": "debug",
+	    "generator": "Ninja",
+	    "binaryDir": "${sourceDir}/build/linux-debug",
+	    "environment": {
+	    },
+	    "cacheVariables": {
+	    }
+	},
+	{
+	    "name": "ubuntu22-debug",
+	    "displayName": "Ubuntu 22 Debug Config",
+	    "description": "Ubuntu 22 debug build using Ninja generator",
+	    "inherits": "ubuntu-debug",
+	    "cacheVariables": {
+		"Qt6_DIR" : "$env{HOME}/Qt/6.7.0/gcc_64/lib/cmake/Qt6",
+		"Qt6CoreTools_DIR" : "$env{HOME}/Qt/6.7.0/gcc_64/lib/cmake/Qt6CoreTools",
+		"Qt6GuiTools_DIR" : "$env{HOME}/Qt/6.7.0/gcc_64/lib/cmake/Qt6GuiTools",
+		"Qt6Widgets_DIR" : "$env{HOME}/Qt/6.7.0/gcc_64/lib/cmake/Qt6Widgets"
+	    }
+	},
+	{
+	    "name": "wasm-mt-debug",
+	    "displayName": "WASM Multithreaded Debug Config",
+	    "description": "WebAssembly multithread debug build using Ninja generator",
+	    "inherits": "ubuntu-debug",
+	    "cacheVariables": {
+		"CMAKE_TOOLCHAIN_FILE" : "$env{HOME}/Qt/6.7.0/wasm_multithread/lib/cmake/Qt6/qt.toolchain.cmake",
+		"Qt6_DIR" : "$env{HOME}/Qt/6.7.0/wasm_multithreaded/lib/cmake/Qt6",
+		"Qt6CoreTools_DIR" : "$env{HOME}/Qt/6.7.0/wasm_multithreaded/lib/cmake/Qt6CoreTools",
+		"Qt6GuiTools_DIR" : "$env{HOME}/Qt/6.7.0/wasm_multithreaded/lib/cmake/Qt6GuiTools",
+		"Qt6Widgets_DIR" : "$env{HOME}/Qt/6.7.0/wasm_multithreaded/lib/cmake/Qt6Widgets"
+	    }
+	}
+	
+    ]
+}
