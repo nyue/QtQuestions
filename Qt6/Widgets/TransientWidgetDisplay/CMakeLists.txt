@@ -11,3 +11,5 @@ add_executable(twd
 target_link_libraries(twd PRIVATE
   ${q_link_libraries}
   )
+
+qt_finalize_executable(twd)

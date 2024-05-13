@@ -9,3 +9,5 @@ add_executable(undoDemo
 target_link_libraries(undoDemo PRIVATE
   ${q_link_libraries}
   )
+
+qt_finalize_executable(undoDemo)
